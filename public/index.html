@@ -1,0 +1,2565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scam Lens – AI Scam & Phishing Checker</title>
+    <meta
+        name="description"
+        content="Scam Lens helps you review suspicious messages, screenshots, audio and links. Understand possible scam tactics and safer next steps with AI-assisted guidance."
+    >
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Lakshya Garg">
+    <meta name="theme-color" content="#eff1eb">
+    <meta name="language" content="English">
+
+    <!-- Social media previews -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Scam Lens">
+    <meta property="og:title" content="Scam Lens – AI Scam & Phishing Checker">
+    <meta
+        property="og:description"
+        content="Review suspicious messages, screenshots, audio and links. Understand possible scam tactics and safer next steps."
+    >
+    <meta property="og:locale" content="en_IN">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Scam Lens – AI Scam & Phishing Checker">
+    <meta
+        name="twitter:description"
+        content="An AI-assisted tool to understand suspicious messages and possible scam tactics."
+    >
+
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Structured data for search engines -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Scam Lens",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Web",
+        "description": "An AI-assisted scam awareness tool that helps users review suspicious messages, screenshots, audio transcripts and URLs, understand possible manipulation tactics, and consider safer next steps.",
+        "inLanguage": "en",
+        "creator": {
+            "@type": "Person",
+            "name": "Lakshya Garg",
+            "url": "https://www.linkedin.com/in/lakshya-garg-798a00396/"
+        },
+        "featureList": [
+            "Suspicious message analysis",
+            "Screenshot text analysis",
+            "Audio transcription and analysis",
+            "Suspicious URL inspection",
+            "Scam awareness and safety guidance"
+        ]
+    }
+    </script>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <button class="brand" id="homeBrand" type="button">
+            <span class="brand-mark">S</span>
+            <span>Scam Lens</span>
+        </button>
+
+        <nav class="main-nav" aria-label="Main navigation">
+            <button type="button" data-nav="home" class="nav-button active">Home</button>
+            <button type="button" data-nav="history" class="nav-button">History</button>
+            <button type="button" data-nav="guide" class="nav-button">Safety guide</button>
+            <button type="button" id="rescueNavButton" class="rescue-nav-button">
+                    I need help now
+            </button>
+        </nav>
+    </div>
+</header>
+
+<main class="app-shell">
+
+    <!-- HOME -->
+    <section id="homeView" class="view">
+
+        <div class="welcome-section">
+            <p class="eyebrow">PERSONAL DIGITAL SAFETY</p>
+            <h1>Understand the threat.<br>Protect what matters.</h1>
+            <p class="welcome-description">
+                Check suspicious messages, screenshots, calls and links
+                before taking action.
+            </p>
+        </div>
+            <aside class="home-rescue-entry" aria-labelledby="homeRescueHeading">
+                <div>
+                    <p class="rescue-kicker">ALREADY TAKEN ACTION?</p>
+                    <h2 id="homeRescueHeading">Think you may have been scammed?</h2>
+                    <p>
+                        Get immediate, practical next steps for money transfers,
+                        shared credentials, suspicious apps or threatening calls.
+                    </p>
+                </div>
+
+                <button id="homeRescueButton" class="rescue-primary-button" type="button">
+                    Open Rescue Mode
+                </button>
+            </aside>
+        <div class="section-heading">
+            <h2>What would you like to check?</h2>
+            <p>Choose the type of content you received.</p>
+        </div>
+
+        <div class="tool-grid">
+
+            <button class="tool-card" type="button" data-tool="text">
+                <span class="tool-icon">
+                    <span class="icon-text">Aa</span>
+                </span>
+                <span class="tool-card-content">
+                    <strong>Text message</strong>
+                    <span>SMS, WhatsApp, emails and chats.</span>
+                    <span class="tool-action">Check message →</span>
+                </span>
+            </button>
+
+            <button class="tool-card" type="button" data-tool="image">
+                <span class="tool-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                        <circle cx="8.5" cy="9" r="1.5"></circle>
+                        <path d="m21 15-5-5L5 20"></path>
+                    </svg>
+                </span>
+                <span class="tool-card-content">
+                    <strong>Screenshot</strong>
+                    <span>Upload a suspicious message screenshot.</span>
+                    <span class="tool-action">Check screenshot →</span>
+                </span>
+            </button>
+
+            <button class="tool-card" type="button" data-tool="voice">
+                <span class="tool-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="9" y="2" width="6" height="13" rx="3"></rect>
+                        <path d="M5 10v2a7 7 0 0 0 14 0v-2"></path>
+                        <path d="M12 19v3M8 22h8"></path>
+                    </svg>
+                </span>
+                <span class="tool-card-content">
+                    <strong>Voice recording</strong>
+                    <span>Record or upload a suspicious call.</span>
+                    <span class="tool-action">Check recording →</span>
+                </span>
+            </button>
+
+            <button class="tool-card" type="button" data-tool="link">
+                <span class="tool-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                </span>
+                <span class="tool-card-content">
+                    <strong>Website / Link</strong>
+                    <span>Inspect an unfamiliar URL.</span>
+                    <span class="tool-action">Check link →</span>
+                </span>
+            </button>
+
+        </div>
+
+        <div class="home-note">
+            <strong>Not sure what to choose?</strong>
+            <p>
+                Select the format in which you received the suspicious
+                content. Scam Lens will guide you through the next steps.
+            </p>
+        </div>
+
+        <div class="home-bottom">
+            <div>
+                <strong>Stay informed</strong>
+                <p>Learn about common scams and ways to protect yourself.</p>
+            </div>
+            <button class="secondary-button" type="button" data-nav="guide">
+                Explore safety guide
+            </button>
+        </div>
+
+        <!-- SEO content appears after the main tool choices. -->
+        <section class="seo-intro" aria-labelledby="seoIntroHeading">
+            <h2 id="seoIntroHeading">
+                An AI-assisted scam and phishing awareness checker
+            </h2>
+            <p>
+                Scam Lens helps you review suspicious messages, screenshots,
+                audio transcripts and website links. It highlights possible
+                social engineering tactics, explains warning signs and offers
+                practical next steps so you can verify unexpected requests
+                before taking action. Results are decision support, not proof
+                that a sender or website is genuine.
+            </p>
+        </section>
+
+    </section>
+
+    <!-- TEXT WORKSPACE -->
+    <section id="textView" class="view" hidden>
+
+        <button class="back-button" type="button" data-back>
+            ← Back to home
+        </button>
+
+        <div class="workspace-heading">
+            <p class="eyebrow">MESSAGE ANALYSIS</p>
+            <h1>Check a text message</h1>
+            <p>Paste an SMS, email, WhatsApp message or chat conversation.</p>
+        </div>
+
+        <div class="panel">
+
+            <form id="textForm">
+
+                <div class="field-group">
+                    <label for="textLanguage">Analysis language</label>
+                    <select id="textLanguage">
+                        <option value="auto">Automatically detect</option>
+                        <option value="english">English</option>
+                        <option value="hindi">Hindi</option>
+                        <option value="hinglish">Hinglish</option>
+                    </select>
+                </div>
+
+                <label for="messageInput">Message to analyze</label>
+
+                <textarea
+                    id="messageInput"
+                    maxlength="10000"
+                    placeholder="Paste the suspicious message here..."
+                    required
+                ></textarea>
+
+                <div class="input-footer">
+                    <span class="helper-text">
+                        Never enter passwords, OTPs or UPI PINs.
+                    </span>
+                    <span id="characterCount">0 / 10,000</span>
+                </div>
+
+                <div class="sample-area">
+                    <p class="sample-label">Try a sample</p>
+                    <div class="sample-buttons">
+                        <button type="button" class="text-button" data-sample="bank">Bank notification</button>
+                        <button type="button" class="text-button" data-sample="arrest">Digital arrest</button>
+                        <button type="button" class="text-button" data-sample="otp">OTP theft</button>
+                        <button type="button" class="text-button" data-sample="job">Fake internship</button>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button id="analyzeTextBtn" class="primary-button" type="submit">
+                        Analyze message
+                    </button>
+                    <button class="secondary-button" type="reset">
+                        Clear
+                    </button>
+                </div>
+
+            </form>
+
+            <p id="textError" class="error-message" role="alert" hidden></p>
+
+        </div>
+
+    </section>
+        <!-- SCREENSHOT WORKSPACE -->
+    <section id="imageView" class="view" hidden>
+
+        <button class="back-button" type="button" data-back>
+            ← Back to home
+        </button>
+
+        <div class="workspace-heading">
+            <p class="eyebrow">SCREENSHOT ANALYSIS</p>
+            <h1>Check a screenshot</h1>
+            <p>Upload a screenshot and extract its message text.</p>
+        </div>
+
+        <div class="panel">
+
+            <div class="field-group">
+                <label for="imageLanguage">Analysis language</label>
+                <select id="imageLanguage">
+                    <option value="auto">Automatically detect</option>
+                    <option value="english">English</option>
+                    <option value="hindi">Hindi</option>
+                    <option value="hinglish">Hinglish</option>
+                </select>
+            </div>
+
+            <label for="imageInput">Choose screenshot</label>
+
+            <input
+                id="imageInput"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+            >
+
+            <div id="imagePreviewContainer" class="image-preview-container" hidden>
+                <img id="imagePreview" alt="Selected screenshot preview">
+            </div>
+
+            <button id="extractImageBtn" class="primary-button full-width" type="button">
+                Extract text from screenshot
+            </button>
+
+            <p id="imageStatus" class="status-message" role="status"></p>
+
+            <div id="extractedImageArea" class="extracted-area" hidden>
+
+                <label for="imageText">Review extracted text</label>
+
+                <p class="helper-text">
+                    OCR can make mistakes. Correct the text before analysis.
+                </p>
+
+                <textarea id="imageText" rows="7" maxlength="10000"></textarea>
+
+                <button id="analyzeImageTextBtn" class="primary-button full-width" type="button">
+                    Analyze extracted text
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="notice-panel">
+            Screenshot text is sent to the AI vision service for extraction.
+            Review the extracted text before proceeding.
+        </div>
+
+    </section>
+
+
+    <!-- VOICE WORKSPACE -->
+    <section id="voiceView" class="view" hidden>
+
+        <button class="back-button" type="button" data-back>
+            ← Back to home
+        </button>
+
+        <div class="workspace-heading">
+            <p class="eyebrow">VOICE ANALYSIS</p>
+            <h1>Check a suspicious call</h1>
+            <p>Record speech or upload an audio recording to analyze its content.</p>
+        </div>
+
+        <div class="notice-panel">
+            <strong>Important limitation</strong>
+            <p>
+                Scam Lens transcribes speech and looks for scam-related
+                language. It does not identify callers, detect cloned
+                voices or prove that a voice is AI-generated.
+            </p>
+            <p>
+                Browser recording uses your microphone; it generally cannot
+                directly capture the internal audio of a cellular call.
+                Only record or upload audio you are legally permitted to use.
+            </p>
+        </div>
+
+        <div class="panel">
+
+            <div class="field-group">
+                <label for="audioLanguage">Spoken language</label>
+                <select id="audioLanguage">
+                    <option value="auto">Automatically detect</option>
+                    <option value="hi">Hindi</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <div class="record-box">
+
+                <div class="record-indicator">
+                    <span id="recordDot"></span>
+                    <span id="recordStatus">Not recording</span>
+                </div>
+
+                <div id="recordTimer" class="record-timer">
+                    00:00 / 02:00
+                </div>
+
+                <div class="form-actions">
+                    <button id="startRecordingBtn" class="primary-button" type="button">
+                        Start recording
+                    </button>
+                    <button id="stopRecordingBtn" class="secondary-button" type="button" disabled>
+                        Stop recording
+                    </button>
+                </div>
+
+                <button
+                    id="transcribeRecordingBtn"
+                    class="secondary-button full-width"
+                    type="button"
+                    hidden
+                >
+                    Transcribe recording
+                </button>
+
+            </div>
+
+            <div class="separator"><span>OR</span></div>
+
+            <div class="field-group">
+                <label for="audioFileInput">Upload an existing audio recording</label>
+                <input
+                    id="audioFileInput"
+                    type="file"
+                    accept="audio/*,.m4a,.mp3,.wav,.ogg,.webm,.flac,.mp4"
+                >
+            </div>
+
+            <button id="transcribeFileBtn" class="secondary-button full-width" type="button">
+                Transcribe uploaded recording
+            </button>
+
+            <p id="audioError" class="error-message" role="alert" hidden></p>
+
+            <div id="transcriptArea" class="extracted-area" hidden>
+
+                <label for="transcriptText">Review call transcript</label>
+
+                <p class="helper-text">
+                    Check the transcription for mistakes before analysis.
+                </p>
+
+                <textarea id="transcriptText" rows="8" maxlength="10000"></textarea>
+
+                <button id="analyzeTranscriptBtn" class="primary-button full-width" type="button">
+                    Analyze call transcript
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- LINK WORKSPACE -->
+    <section id="linkView" class="view" hidden>
+
+        <button class="back-button" type="button" data-back>
+            ← Back to home
+        </button>
+
+        <div class="workspace-heading">
+            <p class="eyebrow">LINK INSPECTION</p>
+            <h1>Check a suspicious link</h1>
+            <p>Inspect the structure of an unfamiliar URL before opening it.</p>
+        </div>
+
+        <div class="panel">
+
+            <form id="linkForm">
+
+                <label for="urlInput">Website URL</label>
+
+                <input
+                    id="urlInput"
+                    type="text"
+                    inputmode="url"
+                    maxlength="2000"
+                    placeholder="https://example.com"
+                    required
+                >
+
+                <p class="helper-text">
+                    You do not need to open the website to inspect its URL structure.
+                </p>
+
+                <button id="checkLinkBtn" class="primary-button full-width" type="submit">
+                    Inspect URL
+                </button>
+
+            </form>
+
+            <p id="linkError" class="error-message" role="alert" hidden></p>
+
+            <div id="linkResults" class="link-results" hidden>
+
+                <div class="results-topline">
+                    <h2>URL inspection</h2>
+                    <span id="linkRiskBadge" class="risk-badge"></span>
+                </div>
+
+                <p><strong>Hostname:</strong> <span id="linkHostname"></span></p>
+
+                <h3>Findings</h3>
+                <ul id="linkFindings"></ul>
+
+                <h3>Recommendations</h3>
+                <ul id="linkSuggestions"></ul>
+
+                <p class="disclaimer">
+                    This prototype checks URL structure only. It does not perform
+                    a live reputation check or guarantee that a website is safe.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+        <!-- COMMON RESULTS WORKSPACE -->
+    <section id="resultsView" class="view" hidden>
+
+        <button class="back-button" id="backToToolBtn" type="button">
+            ← Back to selected tool
+        </button>
+
+        <div class="results-panel">
+
+            <div class="results-topline">
+                <div>
+                    <p class="eyebrow">SCAM LENS ASSESSMENT</p>
+                    <h1>Analysis results</h1>
+                </div>
+                <span id="riskLevel" class="risk-badge"></span>
+            </div>
+
+            <div class="category-row">
+                <span class="category-label">Likely scam category</span>
+                <strong id="scamCategory"></strong>
+            </div>
+
+            <section class="result-section">
+                <h2>Overall assessment</h2>
+                <p id="explanation" class="explanation"></p>
+            </section>
+
+            <section class="result-section">
+                <h2>How the manipulation works</h2>
+                <div id="sequenceList" class="sequence-list"></div>
+            </section>
+
+            <section class="result-section">
+                <h2>Evidence in the submitted content</h2>
+                <div id="highlightedMessage" class="evidence-box"></div>
+                <div id="evidenceCards" class="evidence-cards"></div>
+                <p id="noTacticsMessage" class="no-data-message" hidden>
+                    No specific manipulation indicators were identified.
+                    This does not prove that the sender is genuine.
+                </p>
+            </section>
+
+            <section class="result-section">
+                <h2>Recommended next steps</h2>
+                <ul id="nextStepsList" class="next-steps"></ul>
+            </section>
+            <section class="result-section emergency-box">
+                <h3>Have you already acted on the message or call?</h3>
+                <p>
+                    Do not wait for an AI result if you shared a code, transferred
+                    money or installed an app. Open the local, AI-free Rescue Mode checklist.
+                </p>
+                <button
+                    id="openRescueFromResultsBtn"
+                    class="rescue-primary-button"
+                    type="button"
+                >
+                    Open Rescue Mode
+                </button>
+            </section>
+            <section id="safeResponseContainer" class="result-section" hidden>
+                <h2>Suggested response</h2>
+                <p id="safeResponse" class="safe-reply"></p>
+            </section>
+            <div class="report-actions">
+                <button id="copyReportBtn" class="secondary-button" type="button">Copy report</button>
+                <button id="shareReportBtn" class="secondary-button" type="button">Share</button>
+                <button id="printReportBtn" class="secondary-button" type="button">Print / Save PDF</button>
+                <button id="saveHistoryBtn" class="primary-button" type="button">Save locally</button>
+            </div>
+            <p id="reportStatus" class="status-message"></p>
+            <p class="disclaimer">
+                Scam Lens provides decision support based on submitted content.
+                It cannot authenticate a sender, establish whether a voice is
+                AI-generated, or guarantee that a message or website is safe.
+                Verify important requests independently.
+            </p>
+        </div>
+    </section>
+    <!-- RESCUE MODE -->
+<section id="rescueView" class="view" hidden aria-labelledby="rescueHeading">
+
+    <button class="back-button" id="backFromRescueBtn" type="button">
+        ← Back to home
+    </button>
+
+    <div class="workspace-heading">
+        <p class="eyebrow">IMMEDIATE SAFETY STEPS</p>
+        <h1 id="rescueHeading">Rescue Mode</h1>
+        <p>Choose everything that happened. We will put the most urgent actions first.</p>
+    </div>
+
+    <div class="rescue-alert" role="note">
+        <div>
+            <strong>Has money been transferred or taken from your account?</strong>
+            <p>
+                Contact your bank or payment provider immediately,
+                then report financial cyber fraud through 1930.
+            </p>
+        </div>
+
+        <div class="rescue-alert-actions">
+            <a class="rescue-call-link" href="tel:1930">Call 1930</a>
+            <a href="https://cybercrime.gov.in/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Report online
+            </a>
+        </div>
+    </div>
+
+    <div class="panel rescue-panel">
+        <div class="section-heading rescue-section-heading">
+            <h2>What has happened?</h2>
+            <p>
+                Select all that apply. For example, choose both “money sent”
+                and “suspicious app installed” if both happened.
+            </p>
+        </div>
+
+        <div class="rescue-scenario-grid" id="rescueScenarioOptions">
+
+            <label class="rescue-option">
+                <input type="checkbox" name="rescueScenario" value="money">
+                <span class="rescue-option-copy">
+                    <strong>Money sent or taken</strong>
+                    <span>I made a transfer or noticed an unauthorised debit.</span>
+                </span>
+            </label>
+
+            <label class="rescue-option">
+                <input type="checkbox" name="rescueScenario" value="credentials">
+                <span class="rescue-option-copy">
+                    <strong>OTP, password, PIN or card details shared</strong>
+                    <span>I shared a code or payment credential, even if no money has moved yet.</span>
+                </span>
+            </label>
+
+            <label class="rescue-option">
+                <input type="checkbox" name="rescueScenario" value="app">
+                <span class="rescue-option-copy">
+                    <strong>Suspicious app installed or remote access allowed</strong>
+                    <span>I installed an APK/app or enabled screen sharing, accessibility or remote access.</span>
+                </span>
+            </label>
+
+            <label class="rescue-option">
+                <input type="checkbox" name="rescueScenario" value="arrest">
+                <span class="rescue-option-copy">
+                    <strong>Threatened with “digital arrest”</strong>
+                    <span>Someone claiming to be police, CBI, a regulator or another authority threatened me.</span>
+                </span>
+            </label>
+
+        </div>
+
+        <p class="rescue-selection-hint">
+            If credentials were shared and money was also transferred,
+            select both of those options.
+        </p>
+    </div>
+
+    <section class="rescue-checklist-panel"
+             aria-labelledby="rescueChecklistHeading"
+             aria-live="polite">
+
+        <div class="rescue-section-heading">
+            <h2 id="rescueChecklistHeading">Your priority checklist</h2>
+            <p id="rescueChecklistIntro">
+                Select one or more situations above to see the steps in priority order.
+            </p>
+        </div>
+
+        <ol id="rescueChecklist" class="rescue-checklist"></ol>
+    </section>
+
+    <section class="panel rescue-panel" aria-labelledby="incidentSummaryHeading">
+
+        <div class="rescue-section-heading">
+            <h2 id="incidentSummaryHeading">Prepare an incident summary</h2>
+            <p>
+                Create a short summary you can review before speaking
+                to your bank or making a cybercrime report.
+            </p>
+        </div>
+
+        <div class="rescue-privacy-note">
+            <strong>Private by design:</strong>
+            this summary is generated in your browser. It is not sent to
+            Scam Lens, an AI provider or the police, and it is not saved in
+            Scam Lens report history or local storage.
+
+            Do not enter an OTP, PIN, password, full card number
+            or full account number.
+        </div>
+
+        <div class="rescue-fields-grid">
+
+            <div class="rescue-field">
+                <label for="rescueAmount">
+                    Amount transferred / lost (optional)
+                </label>
+                <input id="rescueAmount"
+                       type="text"
+                       maxlength="60"
+                       placeholder="e.g. ₹5,000">
+            </div>
+
+            <div class="rescue-field">
+                <label for="rescueWhen">
+                    Approximate date and time (optional)
+                </label>
+                <input id="rescueWhen"
+                       type="text"
+                       maxlength="100"
+                       placeholder="e.g. 15 Nov, around 2:30 PM">
+            </div>
+
+            <div class="rescue-field">
+                <label for="rescueProvider">
+                    Bank, wallet or payment app (optional)
+                </label>
+                <input id="rescueProvider"
+                       type="text"
+                       maxlength="100"
+                       placeholder="e.g. SBI / PhonePe">
+            </div>
+
+            <div class="rescue-field">
+                <label for="rescueClaim">
+                    Who did the person claim to be? (optional)
+                </label>
+                <input id="rescueClaim"
+                       type="text"
+                       maxlength="100"
+                       placeholder="e.g. CBI officer / bank support">
+            </div>
+
+        </div>
+
+        <div class="rescue-field">
+            <label for="rescueDetails">What happened? (optional)</label>
+            <textarea
+                id="rescueDetails"
+                maxlength="1200"
+                rows="4"
+                placeholder="Briefly describe what happened. Do not include passwords, OTPs, UPI PINs or full financial identifiers."
+            ></textarea>
+
+            <p class="helper-text">
+                Keep it brief. You can add exact transaction references later
+                when speaking privately with your bank or the authorities.
+            </p>
+        </div>
+
+        <div class="form-actions">
+            <button id="generateIncidentSummaryBtn"
+                    class="primary-button"
+                    type="button"
+                    disabled>
+                Create incident summary
+            </button>
+
+            <button id="copyIncidentSummaryBtn"
+                    class="secondary-button"
+                    type="button"
+                    disabled>
+                Copy summary
+            </button>
+        </div>
+
+        <p id="incidentSummaryStatus" class="status-message" role="status"></p>
+
+        <div id="incidentSummaryOutputWrap"
+             class="incident-summary-output-wrap"
+             hidden>
+
+            <label for="incidentSummaryOutput">
+                Review and edit this summary before sharing
+            </label>
+
+            <textarea id="incidentSummaryOutput" rows="12"></textarea>
+
+            <p class="helper-text">
+                This is a draft, not an automatically filed complaint.
+                Check every detail for accuracy before sharing.
+            </p>
+        </div>
+
+    </section>
+
+    <section class="rescue-sources" aria-labelledby="rescueSourcesHeading">
+
+        <h2 id="rescueSourcesHeading">Official guidance used</h2>
+
+        <ul>
+            <li>
+                <a href="https://cybercrime.gov.in/pdf/Advisories/ADVISORYTAU-ADV-003DigitalArrest06.03.2025.pdf"
+                   target="_blank" rel="noopener noreferrer">
+                    I4C / NCTAU: Digital Arrest Scam Advisory, 6 March 2025
+                </a>
+            </li>
+
+            <li>
+                <a href="https://www.rbi.org.in/commonman/english/Scripts/SMSLimitedliability.aspx"
+                   target="_blank" rel="noopener noreferrer">
+                    RBI: Reporting unauthorised transactions
+                </a>
+            </li>
+
+            <li>
+                <a href="https://www.cert-in.org.in/s2cMainServlet?CACODE=CICA-2026-3492&amp;pageid=PUBADV01"
+                   target="_blank" rel="noopener noreferrer">
+                    CERT-In: Sophisticated RTO/eChallan-themed Android Malware Advisory, 17 March 2026
+                </a>
+            </li>
+
+            <li>
+                <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2068698&amp;lang=2&amp;reg=48"
+                   target="_blank" rel="noopener noreferrer">
+                    PIB (Ministry of Home Affairs): Digital Arrest warning, 27 October 2024
+                </a>
+            </li>
+        </ul>
+
+        <p class="rescue-reviewed">
+            Guidance reviewed against these official sources on 18 November 2026.
+        </p>
+
+    </section>
+    <!-- HISTORY -->
+    <section id="historyView" class="view" hidden>
+
+        <div class="workspace-heading">
+            <p class="eyebrow">YOUR SAVED REPORTS</p>
+            <h1>Analysis history</h1>
+            <p>Reports you explicitly saved on this browser.</p>
+        </div>
+
+        <div class="panel">
+            <div class="history-header">
+                <p class="helper-text">
+                    History is stored locally. It is not automatically uploaded.
+                    Avoid saving sensitive conversations on shared devices.
+                </p>
+                <button id="clearHistoryBtn" class="secondary-button" type="button">
+                    Delete all
+                </button>
+            </div>
+            <div id="historyList" class="history-list"></div>
+        </div>
+
+    </section>
+
+
+    <!-- SAFETY GUIDE -->
+    <section id="guideView" class="view" hidden>
+
+        <div class="workspace-heading">
+            <p class="eyebrow">DIGITAL SAFETY</p>
+            <h1>Stay informed. Stay safer.</h1>
+            <p>Learn to recognize common manipulation techniques.</p>
+        </div>
+
+        <div class="guide-grid">
+
+            <article class="guide-card">
+                <h2>Digital arrest scams</h2>
+                <p>
+                    Fraudsters impersonate police or government officials,
+                    threaten arrest and demand money. Do not transfer money
+                    because of a threatening call.
+                </p>
+            </article>
+
+            <article class="guide-card">
+                <h2>Banking and UPI scams</h2>
+                <p>
+                    Never share your UPI PIN, OTP or banking password.
+                    Be cautious of collect requests, fake refunds and
+                    remote-access application instructions.
+                </p>
+            </article>
+
+            <article class="guide-card">
+                <h2>Fake jobs and internships</h2>
+                <p>
+                    Verify recruiters independently. A demand for a
+                    registration fee to secure an internship deserves
+                    careful scrutiny.
+                </p>
+            </article>
+
+            <article class="guide-card">
+                <h2>Voice impersonation</h2>
+                <p>
+                    A familiar-sounding voice is not proof of identity.
+                    Independently contact the person through a previously
+                    saved number before sending money.
+                </p>
+            </article>
+
+            <article class="guide-card">
+                <h2>Suspicious links</h2>
+                <p>
+                    Inspect the actual domain carefully. Do not enter
+                    credentials after following unexpected links.
+                </p>
+            </article>
+
+            <article class="guide-card">
+                <h2>Urgency and isolation</h2>
+                <p>
+                    Scammers often pressure victims to act quickly and
+                    discourage them from consulting family or trusted people.
+                </p>
+            </article>
+
+        </div>
+
+        <div class="notice-panel guide-reporting">
+            <h3>Need to report cyber fraud in India?</h3>
+            <p>
+                For financial cyber fraud, contact your bank immediately
+                and call <strong>1930</strong>.
+            </p>
+            <a href="https://cybercrime.gov.in/" target="_blank" rel="noopener noreferrer">
+                National Cyber Crime Reporting Portal →
+            </a>
+        </div>
+
+    </section>
+
+    <!-- Privacy reminder is intentionally below the main app content. -->
+    <aside class="privacy-banner" aria-label="Privacy reminder">
+        <div class="privacy-banner-copy">
+            <strong>Your privacy matters</strong>
+            <p>
+                Submitted content may be processed by an external AI service.
+                Never share passwords, OTPs, UPI PINs or complete financial details.
+            </p>
+        </div>
+        <a href="/privacy.html">Read our Privacy Policy →</a>
+    </aside>
+
+    <footer class="site-footer">
+        <p class="footer-credit">
+            Designed &amp; architected by
+            <a
+                href="https://www.linkedin.com/in/lakshya-garg-798a00396/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Lakshya Garg
+            </a>
+        </p>
+
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="/privacy.html">Privacy &amp; Data Use</a>
+            <!-- Add the GitHub repository link here when its URL is finalized. -->
+        </nav>
+
+        <p class="footer-description">
+            Scam Lens · AI-assisted scam awareness and safety guidance
+        </p>
+    </footer>
+
+</main>
+<script src="/rescue.js" nonce="CSP_NONCE_PLACEHOLDER"></script>
+<script nonce="CSP_NONCE_PLACEHOLDER">
+'use strict';
+
+// --------------------------------------------------
+// View navigation
+// --------------------------------------------------
+const viewIds = [
+    'homeView',
+    'textView',
+    'imageView',
+    'voiceView',
+    'linkView',
+    'resultsView',
+    'rescueView',
+    'historyView',
+    'guideView'
+];  
+
+let currentView = 'homeView';
+let selectedTool = 'text';
+
+let latestAnalysis = null;
+let latestMessage = '';
+
+const $ = id => document.getElementById(id);
+
+function showView(viewId) {
+
+    if (!viewIds.includes(viewId)) return;
+
+    viewIds.forEach(id => {
+        $(id).hidden = id !== viewId;
+    });
+
+    currentView = viewId;
+
+    document.querySelectorAll('[data-nav]').forEach(button => {
+        button.classList.toggle(
+            'active',
+            button.dataset.nav ===
+                (viewId === 'historyView' ? 'history' :
+                 viewId === 'guideView' ? 'guide' :
+                 viewId === 'homeView' ? 'home' : '')
+        );
+    });
+    $('rescueNavButton').classList.toggle(
+    'active',
+    viewId === 'rescueView'
+    );
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+const toolViews = {
+    text: 'textView',
+    image: 'imageView',
+    voice: 'voiceView',
+    link: 'linkView'
+};
+
+document.querySelectorAll('[data-tool]').forEach(button => {
+
+    button.addEventListener('click', () => {
+
+        selectedTool = button.dataset.tool;
+
+        showView(toolViews[selectedTool]);
+
+    });
+
+});
+
+document.querySelectorAll('[data-back]').forEach(button => {
+
+    button.addEventListener('click', () => showView('homeView'));
+
+});
+
+document.querySelectorAll('[data-nav]').forEach(button => {
+
+    button.addEventListener('click', () => {
+
+        const destination = button.dataset.nav;
+
+        if (destination === 'home') showView('homeView');
+
+        if (destination === 'history') {
+            renderHistory();
+            showView('historyView');
+        }
+
+        if (destination === 'guide') showView('guideView');
+
+    });
+
+});
+
+$('homeBrand').addEventListener('click', () => showView('homeView'));
+
+$('backToToolBtn').addEventListener('click', () => {
+    showView(toolViews[selectedTool] || 'textView');
+});
+// --------------------------------------------------
+// RESCUE MODE — local, deterministic guidance
+// --------------------------------------------------
+
+const {
+    RESCUE_LABELS: rescueLabels,
+    STEPS: rescueSteps,
+    SOURCES: rescueSources,
+    getRescueSteps
+} = window.ScamLensRescue;
+
+function selectedRescueScenarios() {
+    return [...document.querySelectorAll(
+        'input[name="rescueScenario"]:checked'
+    )].map(input => input.value);
+}
+
+function renderRescueChecklist() {
+    const selected = selectedRescueScenarios();
+    const list = $('rescueChecklist');
+
+    list.replaceChildren();
+
+    $('generateIncidentSummaryBtn').disabled = selected.length === 0;
+
+    $('rescueChecklistIntro').textContent = selected.length
+        ? 'Start at the top. Repeated steps are combined when you select multiple situations.'
+        : 'Select one or more situations above to see the steps in priority order.';
+
+    getRescueSteps(selected).forEach((id, index) => {
+        const item = document.createElement('li');
+        const heading = document.createElement('strong');
+        const detail = document.createElement('p');
+
+        heading.textContent = `${index + 1}. ${rescueSteps[id][0]}`;
+        detail.textContent = rescueSteps[id][1];
+
+        item.append(heading, detail);
+
+        const source = rescueSources[id];
+        if (source) {
+            const note = document.createElement('p');
+            note.className = 'rescue-source';
+            note.append(`Source: ${source.label}`);
+            if (source.url) {
+                const link = document.createElement('a');
+                link.href = source.url;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.textContent = ' (open)';
+                note.append(link);
+            }
+            if (source.note) {
+                const scope = document.createElement('span');
+                scope.className = 'rescue-source-note';
+                scope.textContent = ` ${source.note}`;
+                note.append(scope);
+            }
+            item.append(note);
+        }
+        list.appendChild(item);
+    });
+}
+
+function openRescueMode() {
+    renderRescueChecklist();
+    showView('rescueView');
+}
+
+$('rescueNavButton').addEventListener('click', openRescueMode);
+$('homeRescueButton').addEventListener('click', openRescueMode);
+$('openRescueFromResultsBtn').addEventListener('click', openRescueMode);
+
+$('backFromRescueBtn').addEventListener('click', () => {
+    showView('homeView');
+});
+
+function clearGeneratedSummary(message = '') {
+    $('incidentSummaryOutput').value = '';
+    $('incidentSummaryOutputWrap').hidden = true;
+    $('copyIncidentSummaryBtn').disabled = true;
+    $('incidentSummaryStatus').textContent = message;
+}
+
+document.querySelectorAll('input[name="rescueScenario"]').forEach(input => {
+    input.addEventListener('change', () => {
+        clearGeneratedSummary();
+        renderRescueChecklist();
+    });
+});
+
+[
+    'rescueAmount',
+    'rescueWhen',
+    'rescueProvider',
+    'rescueClaim',
+    'rescueDetails'
+].forEach(id => {
+    $(id).addEventListener('input', () => {
+        if (!$('incidentSummaryOutputWrap').hidden) {
+            clearGeneratedSummary(
+                'Details changed. Create the summary again before copying.'
+            );
+        }
+    });
+});
+
+function buildIncidentSummary() {
+    const selected = selectedRescueScenarios();
+
+    if (!selected.length) return '';
+
+    const stepIds = getRescueSteps(selected);
+
+    const lines = [
+        'SCAM LENS — INCIDENT SUMMARY (DRAFT)',
+        `Prepared: ${new Date().toLocaleString()}`,
+        '',
+        'SITUATIONS SELECTED',
+        ...selected.map(id => `- ${rescueLabels[id]}`),
+        '',
+        'INCIDENT DETAILS',
+        `Amount transferred / lost: ${$('rescueAmount').value.trim() || 'Not provided'}`,
+        `Approximate date and time: ${$('rescueWhen').value.trim() || 'Not provided'}`,
+        `Bank / wallet / payment app: ${$('rescueProvider').value.trim() || 'Not provided'}`,
+        `Claimed identity: ${$('rescueClaim').value.trim() || 'Not provided'}`,
+        `What happened: ${$('rescueDetails').value.trim() || 'Not provided'}`,
+        '',
+        'PRIORITY ACTION CHECKLIST',
+        ...stepIds.map((id, i) =>
+            `${i + 1}. ${rescueSteps[id][0]}\n   ${rescueSteps[id][1]}`
+        ),
+        '',
+        'IMPORTANT',
+        'This is a user-prepared draft. Scam Lens has not submitted a report or contacted a bank or authority. Review every detail before sharing. Do not include passwords, OTPs, UPI PINs or full financial identifiers.',
+        'For financial cyber fraud in India, contact your bank immediately, call 1930 and report at https://cybercrime.gov.in/.'
+    ];
+
+    return lines.join('\n');
+}
+
+$('generateIncidentSummaryBtn').addEventListener('click', () => {
+    const summary = buildIncidentSummary();
+
+    if (!summary) {
+        $('incidentSummaryStatus').textContent =
+            'Select at least one situation first.';
+        return;
+    }
+
+    $('incidentSummaryOutput').value = summary;
+    $('incidentSummaryOutputWrap').hidden = false;
+    $('copyIncidentSummaryBtn').disabled = false;
+
+    $('incidentSummaryStatus').textContent =
+        'Summary created in this browser only. Review it before sharing.';
+});
+
+$('copyIncidentSummaryBtn').addEventListener('click', async () => {
+    const output = $('incidentSummaryOutput');
+
+    if (!output.value.trim()) return;
+
+    try {
+        if (!navigator.clipboard?.writeText) {
+            throw new Error('Clipboard unavailable');
+        }
+
+        await navigator.clipboard.writeText(output.value);
+
+        $('incidentSummaryStatus').textContent =
+            'Incident summary copied.';
+    } catch {
+        output.focus();
+        output.select();
+
+        $('incidentSummaryStatus').textContent =
+            'Clipboard access was blocked. The summary is selected; copy it manually.';
+    }
+});
+
+// --------------------------------------------------
+// Common fetch helper
+// --------------------------------------------------
+
+async function fetchJson(url, options) {
+
+    const response = await fetch(url, options);
+
+    let data;
+
+    try {
+        data = await response.json();
+    } catch {
+        throw new Error('The server returned an invalid response.');
+    }
+
+    if (!response.ok || data.error) {
+        throw new Error(
+            data.error || `Request failed (${response.status}).`
+        );
+    }
+
+    return data;
+}
+
+
+// --------------------------------------------------
+// Common message analysis
+// --------------------------------------------------
+
+async function analyzeMessage(message, language, sourceTool) {
+
+    const cleaned = String(message || '').trim();
+
+    if (!cleaned) {
+        throw new Error('There is no message to analyze.');
+    }
+
+    latestAnalysis = null;
+    latestMessage = '';
+
+    const data = await fetchJson('/api/analyze', {
+
+        method: 'POST',
+
+        headers: {
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+            message: cleaned,
+            language: language || 'auto'
+        })
+
+    });
+
+    if (
+        !['Safe', 'Suspicious', 'Highly Dangerous'].includes(data.risk_level) ||
+        !Array.isArray(data.scam_breakdown) ||
+        !Array.isArray(data.safe_next_steps)
+    ) {
+        throw new Error('The analysis response has an unexpected format.');
+    }
+
+    latestAnalysis = data;
+    latestMessage = cleaned;
+    selectedTool = sourceTool;
+
+    renderAnalysis(data, cleaned);
+
+    showView('resultsView');
+
+}
+
+
+// --------------------------------------------------
+// TEXT MESSAGE TOOL
+// --------------------------------------------------
+
+const samples = {
+
+    bank: "Dear Customer, your HDFC Bank account statement is available. Please open your official banking application independently to review your transactions.",
+
+    arrest: "I am an officer from the Cyber Crime Department. Transfer ₹45,000 within two hours or you will be arrested. Do not tell your family.",
+
+    otp: "Your bank account will be blocked today. Share your OTP and UPI PIN with our verification officer immediately.",
+
+    job: "Congratulations! You have been selected for our remote internship. Pay ₹2,999 immediately as a refundable registration fee to confirm your position."
+
+};
+
+$('messageInput').addEventListener('input', () => {
+
+    $('characterCount').textContent =
+        `${$('messageInput').value.length} / 10,000`;
+
+});
+
+document.querySelectorAll('[data-sample]').forEach(button => {
+
+    button.addEventListener('click', () => {
+
+        $('messageInput').value = samples[button.dataset.sample] || '';
+
+        $('messageInput').dispatchEvent(new Event('input'));
+
+    });
+
+});
+
+$('textForm').addEventListener('submit', async event => {
+
+    event.preventDefault();
+
+    const button = $('analyzeTextBtn');
+
+    button.disabled = true;
+    button.textContent = 'Analyzing...';
+
+    $('textError').hidden = true;
+
+    try {
+
+        await analyzeMessage(
+            $('messageInput').value,
+            $('textLanguage').value,
+            'text'
+        );
+
+    } catch (error) {
+
+        $('textError').textContent = error.message;
+        $('textError').hidden = false;
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = 'Analyze message';
+
+    }
+
+});
+
+
+// --------------------------------------------------
+// SCREENSHOT TOOL
+// --------------------------------------------------
+
+let selectedImageFile = null;
+let imagePreviewUrl = null;
+
+$('imageInput').addEventListener('change', () => {
+
+    const file = $('imageInput').files?.[0];
+
+    selectedImageFile = file || null;
+
+    $('imagePreviewContainer').hidden = true;
+    $('extractedImageArea').hidden = true;
+    $('imageStatus').textContent = '';
+
+    if (imagePreviewUrl) {
+        URL.revokeObjectURL(imagePreviewUrl);
+        imagePreviewUrl = null;
+    }
+
+    if (!file) return;
+
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+
+        $('imageStatus').textContent = 'Use a JPG, PNG or WEBP image.';
+        selectedImageFile = null;
+        return;
+
+    }
+
+    if (file.size > 12 * 1024 * 1024) {
+
+        $('imageStatus').textContent = 'Please select an image smaller than 12 MB.';
+        selectedImageFile = null;
+        return;
+
+    }
+
+    imagePreviewUrl = URL.createObjectURL(file);
+
+    $('imagePreview').src = imagePreviewUrl;
+
+    $('imagePreviewContainer').hidden = false;
+
+});
+
+
+async function prepareImage(file) {
+
+    const objectUrl = URL.createObjectURL(file);
+
+    try {
+
+        const image = new Image();
+
+        await new Promise((resolve, reject) => {
+            image.onload = resolve;
+            image.onerror = () => reject(new Error('Unable to read the image.'));
+            image.src = objectUrl;
+        });
+
+        const maxDimension = 1800;
+
+        const scale = Math.min(
+            1,
+            maxDimension / Math.max(image.width, image.height)
+        );
+
+        const canvas = document.createElement('canvas');
+
+        canvas.width = Math.round(image.width * scale);
+        canvas.height = Math.round(image.height * scale);
+
+        canvas.getContext('2d').drawImage(
+            image,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        const blob = await new Promise(resolve => {
+            canvas.toBlob(resolve, 'image/jpeg', 0.82);
+        });
+
+        if (!blob || blob.size > 6 * 1024 * 1024) {
+            throw new Error('The compressed screenshot is too large.');
+        }
+
+        return await new Promise((resolve, reject) => {
+
+            const reader = new FileReader();
+
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(new Error('Unable to prepare image.'));
+
+            reader.readAsDataURL(blob);
+
+        });
+
+    } finally {
+
+        URL.revokeObjectURL(objectUrl);
+
+    }
+
+}
+
+
+$('extractImageBtn').addEventListener('click', async () => {
+
+    const button = $('extractImageBtn');
+
+    if (!selectedImageFile) {
+        $('imageStatus').textContent = 'Choose a screenshot first.';
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'Extracting text...';
+
+    try {
+
+        const imageDataUrl = await prepareImage(selectedImageFile);
+
+        const data = await fetchJson('/api/analyze-image', {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({ imageDataUrl })
+
+        });
+
+        $('imageText').value = data.extracted_text || '';
+
+        $('extractedImageArea').hidden = false;
+
+        $('imageStatus').textContent =
+            'Text extracted. Review it before analysis.';
+
+    } catch (error) {
+
+        $('imageStatus').textContent = error.message;
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = 'Extract text from screenshot';
+
+    }
+
+});
+
+
+$('analyzeImageTextBtn').addEventListener('click', async () => {
+
+    const button = $('analyzeImageTextBtn');
+
+    button.disabled = true;
+    button.textContent = 'Analyzing...';
+
+    try {
+
+        await analyzeMessage(
+            $('imageText').value,
+            $('imageLanguage').value,
+            'image'
+        );
+
+    } catch (error) {
+
+        $('imageStatus').textContent = error.message;
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = 'Analyze extracted text';
+
+    }
+
+});
+
+
+// --------------------------------------------------
+// VOICE RECORDING TOOL
+// --------------------------------------------------
+
+let mediaRecorder = null;
+let activeStream = null;
+let audioChunks = [];
+let recordedBlob = null;
+let recordingTimer = null;
+let recordingStartedAt = 0;
+
+
+function stopMediaTracks() {
+
+    if (activeStream) {
+
+        activeStream.getTracks().forEach(track => track.stop());
+
+        activeStream = null;
+
+    }
+
+}
+
+
+function stopRecordingTimer() {
+
+    if (recordingTimer) {
+
+        clearInterval(recordingTimer);
+
+        recordingTimer = null;
+
+    }
+
+}
+
+
+function updateRecordingTimer() {
+
+    const seconds = Math.floor(
+        (Date.now() - recordingStartedAt) / 1000
+    );
+
+    const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const secs = String(seconds % 60).padStart(2, '0');
+
+    $('recordTimer').textContent =
+        `${mins}:${secs} / 02:00`;
+
+    if (seconds >= 120 && mediaRecorder?.state === 'recording') {
+        mediaRecorder.stop();
+    }
+
+}
+$('startRecordingBtn').addEventListener('click', async () => {
+
+    if (!navigator.mediaDevices?.getUserMedia ||
+        typeof MediaRecorder === 'undefined') {
+
+        $('audioError').textContent =
+            'Microphone recording is unavailable. Upload an existing recording instead.';
+
+        $('audioError').hidden = false;
+        return;
+
+    }
+
+    try {
+
+        activeStream = await navigator.mediaDevices.getUserMedia({
+            audio: true
+        });
+
+        audioChunks = [];
+        recordedBlob = null;
+
+        let options = {};
+
+        if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+            options.mimeType = 'audio/webm;codecs=opus';
+        } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+            options.mimeType = 'audio/mp4';
+        }
+
+        mediaRecorder = new MediaRecorder(activeStream, options);
+
+        mediaRecorder.ondataavailable = event => {
+
+            if (event.data?.size) audioChunks.push(event.data);
+
+        };
+
+        mediaRecorder.onstop = () => {
+
+            recordedBlob = new Blob(audioChunks, {
+                type: mediaRecorder.mimeType || 'audio/webm'
+            });
+
+            stopMediaTracks();
+            stopRecordingTimer();
+
+            $('recordStatus').textContent = 'Recording ready to transcribe.';
+            $('recordDot').classList.remove('recording');
+
+            $('transcribeRecordingBtn').hidden = false;
+
+            $('startRecordingBtn').disabled = false;
+            $('stopRecordingBtn').disabled = true;
+
+        };
+
+        mediaRecorder.start();
+
+        recordingStartedAt = Date.now();
+
+        updateRecordingTimer();
+
+        recordingTimer = setInterval(updateRecordingTimer, 1000);
+
+        $('recordStatus').textContent = 'Recording...';
+        $('recordDot').classList.add('recording');
+
+        $('startRecordingBtn').disabled = true;
+        $('stopRecordingBtn').disabled = false;
+
+        $('transcribeRecordingBtn').hidden = true;
+        $('audioError').hidden = true;
+
+    } catch {
+
+        stopMediaTracks();
+
+        $('audioError').textContent =
+            'Microphone access failed. Check browser permission or upload an audio file.';
+
+        $('audioError').hidden = false;
+
+    }
+
+});
+
+
+$('stopRecordingBtn').addEventListener('click', () => {
+
+    if (mediaRecorder?.state === 'recording') {
+        mediaRecorder.stop();
+    }
+
+});
+
+
+async function transcribeAudio(blob, filename) {
+
+    if (!blob?.size) {
+        throw new Error('No audio recording was found.');
+    }
+
+    if (blob.size > 20 * 1024 * 1024) {
+        throw new Error('Audio must be smaller than 20 MB.');
+    }
+
+    const mimeType = blob.type || 'application/octet-stream';
+
+    const response = await fetch('/api/transcribe', {
+
+        method: 'POST',
+
+        headers: {
+            'Content-Type': mimeType,
+            'X-Audio-Filename': encodeURIComponent(filename),
+            'X-Audio-Language': $('audioLanguage').value
+        },
+
+        body: blob
+
+    });
+
+    let data;
+
+    try {
+        data = await response.json();
+    } catch {
+        throw new Error('Invalid transcription response from server.');
+    }
+
+    if (!response.ok || data.error) {
+        throw new Error(data.error || 'Audio transcription failed.');
+    }
+
+    if (!data.transcript) {
+        throw new Error('No speech was detected.');
+    }
+
+    $('transcriptText').value = data.transcript;
+
+    $('transcriptArea').hidden = false;
+
+    $('audioError').hidden = true;
+
+    $('transcriptArea').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+
+}
+
+
+$('transcribeRecordingBtn').addEventListener('click', async () => {
+
+    const button = $('transcribeRecordingBtn');
+
+    button.disabled = true;
+    button.textContent = 'Transcribing...';
+
+    try {
+
+        await transcribeAudio(recordedBlob, 'recording.webm');
+
+    } catch (error) {
+
+        $('audioError').textContent = error.message;
+        $('audioError').hidden = false;
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = 'Transcribe recording';
+
+    }
+
+});
+
+
+$('transcribeFileBtn').addEventListener('click', async () => {
+
+    const file = $('audioFileInput').files?.[0];
+
+    if (!file) {
+        $('audioError').textContent = 'Choose an audio file first.';
+        $('audioError').hidden = false;
+        return;
+    }
+
+    const button = $('transcribeFileBtn');
+
+    button.disabled = true;
+    button.textContent = 'Transcribing...';
+
+    try {
+
+        await transcribeAudio(file, file.name);
+
+    } catch (error) {
+
+        $('audioError').textContent = error.message;
+        $('audioError').hidden = false;
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = 'Transcribe uploaded recording';
+
+    }
+
+});
+
+
+$('analyzeTranscriptBtn').addEventListener('click', async () => {
+
+    const button = $('analyzeTranscriptBtn');
+
+    button.disabled = true;
+    button.textContent = 'Analyzing...';
+
+    try {
+
+        await analyzeMessage(
+            $('transcriptText').value,
+            'auto',
+            'voice'
+        );
+
+    } catch (error) {
+
+        $('audioError').textContent = error.message;
+        $('audioError').hidden = false;
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = 'Analyze call transcript';
+
+    }
+
+});
+
+
+window.addEventListener('beforeunload', () => {
+
+    stopMediaTracks();
+    stopRecordingTimer();
+
+    if (imagePreviewUrl) {
+        URL.revokeObjectURL(imagePreviewUrl);
+    }
+
+});
+
+
+// --------------------------------------------------
+// LINK CHECKER
+// --------------------------------------------------
+$('linkForm').addEventListener('submit', async event => {
+
+    event.preventDefault();
+
+    const button = $('checkLinkBtn');
+
+    $('linkError').hidden = true;
+    $('linkResults').hidden = true;
+
+    button.disabled = true;
+    button.textContent = 'Inspecting...';
+
+    try {
+
+        const data = await fetchJson('/api/check-link', {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+                url: $('urlInput').value.trim()
+            })
+
+        });
+
+        $('linkHostname').textContent = data.hostname || '';
+
+        const badge = $('linkRiskBadge');
+
+        badge.className = 'risk-badge';
+        badge.textContent = data.risk_level;
+
+        if (data.risk_level === 'High caution') {
+            badge.classList.add('risk-dangerous');
+        } else if (data.risk_level === 'Review carefully') {
+            badge.classList.add('risk-suspicious');
+        } else {
+            badge.classList.add('risk-safe');
+        }
+
+        fillList(
+            $('linkFindings'),
+            data.findings?.length
+                ? data.findings
+                : ['No obvious structural warnings found.']
+        );
+
+        fillList(
+            $('linkSuggestions'),
+            [
+                ...(data.suggestions || []),
+                data.reputation_check,
+                data.disclaimer
+            ].filter(Boolean)
+        );
+
+        $('linkResults').hidden = false;
+
+    } catch (error) {
+
+        $('linkError').textContent = error.message;
+        $('linkError').hidden = false;
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = 'Inspect URL';
+
+    }
+
+});
+
+
+// --------------------------------------------------
+// COMMON RESULTS RENDERING
+// --------------------------------------------------
+
+function fillList(container, items) {
+
+    container.replaceChildren();
+
+    items.forEach(text => {
+
+        const li = document.createElement('li');
+
+        li.textContent = String(text);
+
+        container.appendChild(li);
+
+    });
+
+}
+
+
+function renderAnalysis(data, message) {
+
+    const riskBadge = $('riskLevel');
+
+    riskBadge.className = 'risk-badge';
+
+    if (data.risk_level === 'Safe') {
+
+        riskBadge.textContent = 'LOW RISK — NO OBVIOUS INDICATORS';
+        riskBadge.classList.add('risk-safe');
+
+    } else if (data.risk_level === 'Suspicious') {
+
+        riskBadge.textContent = 'SUSPICIOUS';
+        riskBadge.classList.add('risk-suspicious');
+
+    } else {
+
+        riskBadge.textContent = 'HIGHLY DANGEROUS';
+        riskBadge.classList.add('risk-dangerous');
+
+    }
+
+    $('scamCategory').textContent =
+        data.scam_category || 'Unclear';
+
+    $('explanation').textContent =
+        data.explanation_summary || 'No explanation was returned.';
+
+    renderHighlightedMessage(message, data.scam_breakdown);
+
+    renderEvidenceCards(data.scam_breakdown);
+
+    renderSequence(data.manipulation_sequence, data.scam_breakdown);
+
+    fillList($('nextStepsList'), data.safe_next_steps || []);
+
+    $('noTacticsMessage').hidden =
+        data.scam_breakdown.length > 0;
+
+    const response = data.safe_response_template;
+
+    $('safeResponse').textContent =
+        typeof response === 'string' ? response : '';
+
+    $('safeResponseContainer').hidden =
+        !(typeof response === 'string' && response.trim());
+
+    $('reportStatus').textContent = '';
+
+    $('saveHistoryBtn').disabled = false;
+
+}
+
+
+function renderHighlightedMessage(message, breakdown) {
+
+    const container = $('highlightedMessage');
+
+    container.replaceChildren();
+
+    const phrases = [
+        ...new Set(
+            (breakdown || [])
+                .map(item => String(item?.suspicious_phrase || '').trim())
+                .filter(Boolean)
+        )
+    ].sort((a, b) => b.length - a.length);
+
+    const ranges = [];
+
+    phrases.forEach(phrase => {
+
+        const start = message.toLowerCase().indexOf(phrase.toLowerCase());
+
+        if (start < 0) return;
+
+        const end = start + phrase.length;
+
+        const overlaps = ranges.some(range =>
+            start < range.end && end > range.start
+        );
+
+        if (!overlaps) ranges.push({ start, end });
+
+    });
+
+    ranges.sort((a, b) => a.start - b.start);
+
+    let cursor = 0;
+
+    ranges.forEach(range => {
+
+        container.appendChild(
+            document.createTextNode(message.slice(cursor, range.start))
+        );
+
+        const mark = document.createElement('mark');
+
+        mark.className = 'evidence-highlight';
+
+        mark.textContent = message.slice(range.start, range.end);
+
+        container.appendChild(mark);
+
+        cursor = range.end;
+
+    });
+
+    container.appendChild(
+        document.createTextNode(message.slice(cursor))
+    );
+
+}
+
+
+function renderEvidenceCards(breakdown) {
+
+    const container = $('evidenceCards');
+
+    container.replaceChildren();
+
+    (breakdown || []).forEach((item, index) => {
+
+        const card = document.createElement('article');
+
+        card.className = 'evidence-card';
+
+        const heading = document.createElement('h3');
+
+        heading.textContent = `Evidence ${index + 1}`;
+
+        const quote = document.createElement('blockquote');
+
+        quote.textContent =
+            `“${item.suspicious_phrase || ''}”`;
+
+        const tactics = document.createElement('div');
+
+        tactics.className = 'tactic-list';
+
+        const values = Array.isArray(item.detected_tactics)
+            ? item.detected_tactics
+            : item.detected_tactic
+                ? [item.detected_tactic]
+                : [];
+
+        values.forEach(value => {
+
+            const chip = document.createElement('span');
+
+            chip.className = 'tactic-chip';
+            chip.textContent = String(value);
+
+            tactics.appendChild(chip);
+
+        });
+
+        const why = document.createElement('p');
+
+        why.textContent =
+            item.why_it_matters || 'Review this phrase in context.';
+
+        card.append(heading, quote, tactics, why);
+
+        container.appendChild(card);
+
+    });
+
+}function renderSequence(sequence, breakdown) {
+
+    const container = $('sequenceList');
+
+    container.replaceChildren();
+
+    let items = Array.isArray(sequence) ? sequence : [];
+
+    if (!items.length && breakdown?.length) {
+
+        items = breakdown.map((item, index) => ({
+
+            title: (item.detected_tactics || []).join(', ') ||
+                'Potential manipulation',
+
+            description: item.why_it_matters || '',
+
+            evidence_quote: item.suspicious_phrase,
+
+            step: index + 1
+
+        }));
+
+    }
+
+    if (!items.length) {
+
+        const empty = document.createElement('p');
+
+        empty.className = 'no-data-message';
+
+        empty.textContent =
+            'No specific manipulation sequence was identified.';
+
+        container.appendChild(empty);
+
+        return;
+
+    }
+
+    items.forEach((item, index) => {
+
+        const card = document.createElement('article');
+
+        card.className = 'sequence-card';
+
+        const number = document.createElement('span');
+
+        number.className = 'sequence-number';
+
+        number.textContent = String(index + 1);
+
+        const content = document.createElement('div');
+
+        const heading = document.createElement('h3');
+
+        heading.textContent =
+            item.title || 'Manipulation step';
+
+        const description = document.createElement('p');
+
+        description.textContent =
+            item.description || '';
+
+        const quote = document.createElement('p');
+
+        quote.className = 'sequence-quote';
+
+        quote.textContent = item.evidence_quote
+            ? `Evidence: “${item.evidence_quote}”`
+            : '';
+
+        content.append(heading, description, quote);
+
+        card.append(number, content);
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+// --------------------------------------------------
+// REPORTS
+// --------------------------------------------------
+
+function buildReport() {
+
+    if (!latestAnalysis) return '';
+
+    const lines = [
+
+        'SCAM LENS ANALYSIS REPORT',
+
+        '==========================',
+
+        '',
+
+        `Risk level: ${latestAnalysis.risk_level}`,
+
+        `Category: ${latestAnalysis.scam_category}`,
+
+        '',
+
+        'Overall assessment:',
+
+        latestAnalysis.explanation_summary,
+
+        '',
+
+        'Evidence and tactics:'
+
+    ];
+
+    latestAnalysis.scam_breakdown.forEach(item => {
+
+        const tactics = (item.detected_tactics || []).join(', ');
+
+        lines.push(
+            `- "${item.suspicious_phrase}"`,
+            `Tactics: ${tactics}`,
+            `Explanation: ${item.why_it_matters}`,
+            ''
+        );
+
+    });
+
+    lines.push(
+        'Recommended actions:',
+        ...(latestAnalysis.safe_next_steps || []).map(x => `- ${x}`),
+        '',
+        'Original content:',
+        latestMessage,
+        '',
+        'Note: Automated decision support only. Sender identity is not authenticated.'
+    );
+
+    return lines.join('\n');
+
+}
+
+
+async function copyReport() {
+
+    const report = buildReport();
+
+    if (!report) return;
+
+    try {
+
+        await navigator.clipboard.writeText(report);
+
+        $('reportStatus').textContent =
+            'Report copied successfully.';
+
+    } catch {
+
+        $('reportStatus').textContent =
+            'Clipboard access was unavailable.';
+
+    }
+
+}
+
+
+$('copyReportBtn').addEventListener('click', copyReport);
+
+$('shareReportBtn').addEventListener('click', async () => {
+
+    const report = buildReport();
+
+    if (!report) return;
+
+    try {
+
+        if (navigator.share) {
+
+            await navigator.share({
+                title: 'Scam Lens Report',
+                text: report
+            });
+
+        } else {
+
+            await copyReport();
+
+        }
+
+    } catch (error) {
+
+        if (error.name !== 'AbortError') {
+            await copyReport();
+        }
+
+    }
+
+});
+
+
+$('printReportBtn').addEventListener('click', () => {
+
+    if (latestAnalysis) window.print();
+
+});
+
+
+// --------------------------------------------------
+// LOCAL HISTORY
+// --------------------------------------------------
+
+const HISTORY_KEY = 'scamLensHistoryV3';
+
+function getHistory() {
+
+    try {
+
+        const parsed = JSON.parse(
+            localStorage.getItem(HISTORY_KEY) || '[]'
+        );
+
+        return Array.isArray(parsed) ? parsed : [];
+
+    } catch {
+
+        return [];
+
+    }
+
+}$('saveHistoryBtn').addEventListener('click', () => {
+
+    if (!latestAnalysis) return;
+
+    const history = getHistory();
+
+    history.unshift({
+
+        id: Date.now(),
+
+        createdAt: new Date().toISOString(),
+
+        message: latestMessage,
+
+        analysis: latestAnalysis
+
+    });
+
+    try {
+
+        localStorage.setItem(
+            HISTORY_KEY,
+            JSON.stringify(history.slice(0, 15))
+        );
+
+        $('reportStatus').textContent =
+            'Report saved locally on this device.';
+
+        $('saveHistoryBtn').disabled = true;
+
+    } catch {
+
+        $('reportStatus').textContent =
+            'Unable to save. Browser storage may be full.';
+
+    }
+
+});
+
+
+function renderHistory() {
+
+    const container = $('historyList');
+
+    container.replaceChildren();
+
+    const history = getHistory();
+
+    if (!history.length) {
+
+        const empty = document.createElement('p');
+
+        empty.className = 'no-data-message';
+
+        empty.textContent = 'No saved reports yet.';
+
+        container.appendChild(empty);
+
+        return;
+
+    }
+
+    history.forEach(item => {
+
+        const card = document.createElement('article');
+
+        card.className = 'history-card';
+
+        const heading = document.createElement('h3');
+
+        heading.textContent =
+            `${item.analysis.risk_level} — ${item.analysis.scam_category}`;
+
+        const date = document.createElement('p');
+
+        date.textContent =
+            new Date(item.createdAt).toLocaleString();
+
+        const preview = document.createElement('p');
+
+        preview.textContent =
+            String(item.message).slice(0, 140);
+
+        const actions = document.createElement('div');
+
+        actions.className = 'history-actions';
+
+        const openButton = document.createElement('button');
+
+        openButton.className = 'secondary-button';
+
+        openButton.type = 'button';
+
+        openButton.textContent = 'View report';
+
+        openButton.addEventListener('click', () => {
+
+            latestAnalysis = item.analysis;
+            latestMessage = item.message;
+
+            selectedTool = 'text';
+
+            renderAnalysis(item.analysis, item.message);
+
+            showView('resultsView');
+
+        });
+
+        const deleteButton = document.createElement('button');
+
+        deleteButton.className = 'text-button';
+
+        deleteButton.type = 'button';
+
+        deleteButton.textContent = 'Delete';
+
+        deleteButton.addEventListener('click', () => {
+
+            const updated = getHistory().filter(
+                entry => entry.id !== item.id
+            );
+
+            localStorage.setItem(
+                HISTORY_KEY,
+                JSON.stringify(updated)
+            );
+
+            renderHistory();
+
+        });
+
+        actions.append(openButton, deleteButton);
+
+        card.append(heading, date, preview, actions);
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+$('clearHistoryBtn').addEventListener('click', () => {
+
+    if (!confirm('Delete all saved Scam Lens reports from this browser?')) {
+        return;
+    }
+
+    localStorage.removeItem(HISTORY_KEY);
+
+    renderHistory();
+
+});
+
+</script>
+</body>
+</html>

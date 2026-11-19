@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Privacy &amp; Data Use | Scam Lens</title>
+    <meta
+        name="description"
+        content="Learn how Scam Lens processes submitted messages, screenshots, audio recordings and URLs, and how locally saved reports are handled."
+    >
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#eff1eb">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/privacy.css">
+</head>
+<body>
+    <main class="app-shell">
+        <header class="site-header">
+            <p class="eyebrow">SCAM LENS / PRIVACY</p>
+            <h1>Privacy &amp; Data Use</h1>
+            <p class="subtitle">
+                What is processed when you use Scam Lens, what stays in your browser,
+                and what you should avoid submitting.
+            </p>
+        </header>
+
+        <p class="policy-updated">Last updated: November 13, 2026</p>
+
+        <div class="policy-content">
+            <section class="policy-card">
+                <h2>1. About this notice</h2>
+                <p>
+                    Scam Lens is an AI-assisted scam-awareness prototype. It reviews
+                    submitted content for possible social-engineering warning signs
+                    and provides informational suggestions. It does not authenticate
+                    a person, sender, organisation, phone number or website, and it
+                    cannot guarantee that content is safe or fraudulent.
+                </p>
+                <p>
+                    This notice describes the current application implementation.
+                    The services used by a future deployment may change, so this page
+                    should be reviewed whenever its processing flow changes.
+                </p>
+            </section>
+
+            <section class="policy-card">
+                <h2>2. What is sent for processing</h2>
+                <ul>
+                    <li>
+                        <strong>Text analysis:</strong> The message text and selected
+                        language preference are sent from the Scam Lens server to the
+                        configured Groq chat model for analysis.
+                    </li>
+                    <li>
+                        <strong>Screenshot analysis:</strong> The browser prepares a
+                        compressed image and sends it to the Scam Lens server. The
+                        server forwards the image to the configured Groq vision model
+                        to extract visible text. If you choose to analyze the extracted
+                        text, that text is then sent for text analysis.
+                    </li>
+                    <li>
+                        <strong>Voice analysis:</strong> The recording or audio file is
+                        sent to the Scam Lens server and forwarded to the configured
+                        Groq transcription service. The transcript is shown for review.
+                        If you choose to analyze it, the transcript is then sent to the
+                        chat model. This feature transcribes speech; it does not verify
+                        the caller's identity or determine whether a voice is cloned.
+                    </li>
+                    <li>
+                        <strong>Link inspection:</strong> The submitted URL is sent to
+                        the Scam Lens server for structural parsing. This implementation
+                        does not open the destination, fetch the website, or query a
+                        live malicious-domain reputation service.
+                    </li>
+                </ul>
+                <p class="policy-callout">
+                    Avoid submitting information that is not necessary for an
+                    assessment. In particular, do not submit passwords, OTPs,
+                    UPI PINs, full payment-card numbers or full bank credentials.
+                </p>
+            </section>
+
+            <section class="policy-card">
+                <h2>3. Third-party AI processing</h2>
+                <p>
+                    Text, screenshot and audio processing uses Groq-hosted AI services
+                    configured by the application owner. The relevant submitted content
+                    is transmitted to those services to complete the requested operation.
+                    Groq handles that data under its own applicable terms and privacy
+                    practices. Scam Lens does not control independent third-party
+                    retention or processing, so do not submit sensitive material.
+                </p>
+            </section>
+
+            <section class="policy-card">
+                <h2>4. Server-side storage</h2>
+                <p>
+                    In this version, Scam Lens does not provide user accounts or a
+                    server-side database for saved reports. The application code
+                    processes requests and returns results; it does not intentionally
+                    save submitted messages, screenshots, recordings or reports in an
+                    application database.
+                </p>
+                <p>
+                    The hosting platform and third-party services may process technical
+                    request data under their own policies. Error diagnostics may be
+                    written to the server console; the application should not be treated
+                    as a confidential document-storage service.
+                </p>
+            </section>
+
+            <section class="policy-card">
+                <h2>5. History in your browser</h2>
+                <p>
+                    Reports are saved only when you explicitly select the application's
+                    <strong>Save locally</strong> action. The app stores up to the 15 most
+                    recent saved reports in browser local storage. A saved report includes
+                    the submitted text, its analysis and the save timestamp.
+                </p>
+                <p>
+                    The History screen lets you delete individual reports or use
+                    <strong>Delete all</strong> to clear saved reports from that browser.
+                    Saved reports are not synced through a Scam Lens account because
+                    the current version has no account system.
+                </p>
+                <p>
+                    Anyone with access to the same browser profile or device may be able
+                    to view locally saved reports. Clearing browser site data also removes
+                    local application data. Deleting a local report does not delete data
+                    that a third-party provider may independently retain under its terms.
+                </p>
+                <p>
+                    <strong>Rescue Mode:</strong> 
+                    The incident-summary form is generated in your browser. The app does not send the information entered in
+                    these fields to the Scam Lens server or its AI providers, and does
+                    not add it to saved report history or browser local storage.
+                    If you select Copy summary, your browser's clipboard receives the
+                    summary. Avoid entering passwords, OTPs, UPI PINs or full financial
+                    identifiers.
+                </p>
+            </section>
+
+            <section class="policy-card">
+                <h2>6. Audio recording and consent</h2>
+                <p>
+                    The voice feature may request microphone permission from your browser.
+                    Only record or upload conversations that you are legally allowed to
+                    record and share. You are responsible for obtaining any consent required
+                    by the laws that apply to you.
+                </p>
+            </section>
+
+            <section class="policy-card">
+                <h2>7. Limitations and safe use</h2>
+                <ul>
+                    <li>A result with no obvious warning signs is not proof of authenticity.</li>
+                    <li>OCR and speech transcription can make mistakes; review extracted text.</li>
+                    <li>A URL without structural warnings may still lead to a malicious website.</li>
+                    <li>Do not use an AI result as the only basis for a financial or security decision.</li>
+                    <li>Verify important requests through contact details you find independently.</li>
+                </ul>
+            </section>
+
+            <section class="policy-card">
+                <h2>8. Reporting suspected cyber fraud in India</h2>
+                <p>
+                    If money has been transferred or debited in a suspected cyber fraud,
+                    contact your bank or payment provider immediately and call the national
+                    cyber financial fraud helpline at <strong>1930</strong>. You can also
+                    report cybercrime at
+                    <a href="https://cybercrime.gov.in/" target="_blank" rel="noopener noreferrer">cybercrime.gov.in</a>.
+                </p>
+            </section>
+
+            <section class="policy-card">
+                <h2>9. Project ownership</h2>
+                <p>
+                    Scam Lens is designed and architected by
+                    <a href="https://www.linkedin.com/in/lakshya-garg-798a00396/"
+                       target="_blank" rel="noopener noreferrer">Lakshya Garg</a>.
+                    This LinkedIn profile is provided for project-related context.
+                </p>
+            </section>
+        </div>
+
+        <a class="policy-back" href="/">← Return to Scam Lens</a>
+
+        <footer class="site-footer">
+            <p class="footer-credit">
+                Designed &amp; architected by
+                <a href="https://www.linkedin.com/in/lakshya-garg-798a00396/"
+                   target="_blank" rel="noopener noreferrer">Lakshya Garg</a>
+            </p>
+            <nav class="footer-links" aria-label="Footer navigation">
+                <a href="/">Home</a>
+            </nav>
+            <p class="footer-description">Scam Lens · Privacy &amp; Data Use</p>
+        </footer>
+    </main>
+</body>
+</html>
