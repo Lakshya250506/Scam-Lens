@@ -1,4 +1,4 @@
-# Implementation Plan: Scam Lens – Stability and Security Improvements
+﻿# Implementation Plan: Scam Lens – Stability and Security Improvements
 
 ## Overview
 

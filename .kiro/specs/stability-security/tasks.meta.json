@@ -1,0 +1,1878 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Open `public/index.html`. Locate the first screenshot block — currently **lines 982 through 1120**. It begins at this comment:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646184
+      },
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672656742
+      }
+    ],
+    "1.2 Delete lines 982–1120 in their entirety. After deletion, the second screenshot block (which begins at the comment `// SCREENSHOT TOOL` now on line 1121) becomes the sole screenshot implementation.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646238
+      }
+    ],
+    "1.3 Confirm the following items from Block B are present and unchanged after the deletion: `let selectedImageFile = null;`, `let imagePreviewUrl = null;`, the `$('imageInput').addEventListener('change', ...)` handler that calls `URL.createObjectURL`, the `prepareImage(file)` function, the `$('extractImageBtn').addEventListener('click', ...)` handler that calls `prepareImage`, the `$('analyzeImageTextBtn').addEventListener('click', ...)` handler, and the `window.addEventListener('beforeunload', ...)` handler that revokes `imagePreviewUrl`.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646282
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863342
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673967451
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794674014960
+      }
+    ],
+    "1.4 Verify: search the file for `selectedImageData` — zero matches; `imageInput.*addEventListener` — exactly one match; `extractImageBtn.*addEventListener` — exactly one match; `prepareImage` — at least two matches (definition + call).": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646327
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863400
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794674024057
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794674043839
+      }
+    ],
+    "1.5 Manual regression: (a) select a small image (< 1 MB) → preview appears, no errors; (b) select an image between 6 MB and 12 MB → preview appears, no size error; (c) select an image > 12 MB → error \"Please select an image smaller than 12 MB.\" shown, no preview; (d) click \"Extract text from screenshot\" with a valid image → one network request to `/api/analyze-image` with a JPEG data URL body in DevTools Network tab; (e) no JS errors in the browser console.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646374
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863453
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794674052853
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794674078117
+      }
+    ],
+    "2.1 Search `public/index.html` for the **second** occurrence of `$('saveHistoryBtn').addEventListener('click', () => {`.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646412
+      }
+    ],
+    "2.2 Delete everything from that second `$('saveHistoryBtn').addEventListener` call through to and including the closing `});` of the second `$('clearHistoryBtn').addEventListener` call, plus any trailing blank lines before `</script>`. This removes the second copies of: `$('saveHistoryBtn').addEventListener('click', () => { ... });`, `function renderHistory() { ... }`, and `$('clearHistoryBtn').addEventListener('click', () => { ... });`. After deletion the file should end with the closing `});` of Block C's `clearHistoryBtn` listener, followed by `</script>` and `</body></html>`.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646490
+      }
+    ],
+    "2.3 Verify: search for `saveHistoryBtn.*addEventListener` — exactly one match; `function renderHistory` — exactly one match; `clearHistoryBtn.*addEventListener` — exactly one match.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646530
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863646
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735201
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675831714
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675850450
+      }
+    ],
+    "2.4 Manual regression: (a) run any analysis, click \"Save locally\"; (b) open DevTools → Application → Local Storage → `scamLensHistoryV3` and confirm exactly one new entry; (c) navigate to History and confirm exactly one card; (d) reload the page, navigate to History — still exactly one card; (e) click \"Delete\" on the card — card removed, \"No saved reports yet\" shown; (f) run another analysis, save it, click \"Delete all\" — all entries removed.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646582
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863698
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735280
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675859071
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991001
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721065152
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721128779
+      }
+    ],
+    "3.1 Open `.gitignore`. Confirm it already contains `node_modules/`, `.env`, and `.DS_Store`. Append two new lines at the end: `*.log` and `npm-debug.log*`. The final file should read:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646626
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863756
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735373
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991102
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721140659
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721180701
+      }
+    ],
+    "3.2 Create a new file `.env.example` at the project root with this exact content:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646674
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863813
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735466
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991185
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721185912
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721231684
+      }
+    ],
+    "3.3 Search `server.js` for any `console.log`, `console.warn`, or `console.error` call that outputs `process.env.GROQ_API_KEY`. Confirm none exist. No change to `server.js` is needed for this step.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646722
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863869
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735568
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991279
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721237048
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721285594
+      }
+    ],
+    "3.4 Verify: `git check-ignore -v .env` → `.env` is listed as ignored; `git check-ignore -v .env.example` → no output (file is tracked); `.env.example` contains no string beginning with `gsk_`.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646770
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863924
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735651
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991352
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721292082
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721437709
+      }
+    ],
+    "4.1 Open `public/privacy.html`. Locate the `<style>...</style>` block inside `<head>`. Create a new file `public/privacy.css`. Copy the entire contents of that `<style>` block (every CSS rule, unchanged) into `public/privacy.css`. Then in `public/privacy.html`, replace the entire `<style>...</style>` block with `<link rel=\"stylesheet\" href=\"/privacy.css\">`, placed after the existing `<link rel=\"stylesheet\" href=\"/style.css\">` line.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646818
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863979
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735738
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991429
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721446408
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721495300
+      }
+    ],
+    "4.2 Open `public/index.html`. Locate the opening `<script>` tag near the bottom of `<body>` (the line that reads `<script>`). Change it to `<script nonce=\"CSP_NONCE_PLACEHOLDER\">`.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646860
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864034
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735819
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991498
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721501493
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721542278
+      }
+    ],
+    "4.3 At the top of `server.js`, after the existing `require('node:path')` and `require('node:net')` lines, add:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646898
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864089
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735894
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991579
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721548822
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721581210
+      }
+    ],
+    "4.4 After the `PUBLIC_DIR` constant and before the middleware block, add:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646939
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864145
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735995
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991653
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721586316
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721665518
+      }
+    ],
+    "4.5 In the existing global security-header middleware block (the one that sets `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, and `Permissions-Policy`), add an unconditional baseline CSP — no path condition, every response receives this header:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672646991
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864212
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675736089
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991731
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721675363
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721721486
+      }
+    ],
+    "4.6 Define the `serveIndexWithNonce` function and register it as `app.get('/')` and `app.get('/index.html')` **before** the `app.use(express.static(...))` line. Remove the existing `app.get('/', ...)` route:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647031
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864271
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675736176
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991826
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721729017
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794722272289
+      }
+    ],
+    "4.7 Update the `express.static` call to add `{ index: false }`:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647079
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864332
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675736257
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991899
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794722279087
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794722398193
+      }
+    ],
+    "4.8 Verify: (a) start the server with `npm start`; (b) open `http://localhost:3000`, in DevTools → Network confirm the document response includes `Content-Security-Policy` with a `nonce-` value in `script-src`; (c) open DevTools → Console and confirm no CSP violation errors; (d) use all four tools — no CSP errors; (e) save a report from History — no errors; (f) open `http://localhost:3000/privacy.html` and confirm the page renders correctly with its styles applied and the response includes a `Content-Security-Policy` header; (g) in the browser console attempt `eval('1')` — confirm it is blocked.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647159
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864387
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675736348
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720991976
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794722406250
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794722915561
+      }
+    ],
+    "5.1 Locate the `app.listen` call at the bottom of `server.js`. Wrap it in a `NODE_ENV` guard:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647203
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864444
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675736430
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992048
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794722921472
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794722971000
+      }
+    ],
+    "5.2 At the very end of `server.js`, after the `app.listen` guard, add:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647246
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864497
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675736515
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992121
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794722976181
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794723029782
+      }
+    ],
+    "5.3 In `package.json`, add the `\"test\"` script:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647295
+      }
+    ],
+    "5.4 Create the directory `tests/` and the file `tests/server.test.js`. The file must set `process.env.NODE_ENV = 'test'` before requiring `server.js`, then import and test the five exported functions:": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647347
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864619
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675736729
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992262
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794723075830
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794723258657
+      }
+    ],
+    "5.5 Implement VA-T1 through VA-T8 for `validateAnalysis` (REQ-5.6):": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647396
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864702
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675736821
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992327
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794723265137
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794723676025
+      }
+    ],
+    "5.6 Implement IL-T1 through IL-T9 for `inspectLink` (REQ-5.7):": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647445
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864764
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675736915
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992397
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794723681586
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794723766302
+      }
+    ],
+    "5.7 Implement IS-T1 through IS-T6 for `hasImageSignature` (REQ-5.8):": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647493
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864882
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737010
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992465
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794723769683
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724130643
+      }
+    ],
+    "5.8 Implement AS-T1 through AS-T9 for `hasAudioSignature` (REQ-5.9):": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647540
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864940
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737097
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992536
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724135672
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724247394
+      }
+    ],
+    "5.9 Implement RQ-T1 through RQ-T5 for `recoverExactQuote` (REQ-5.10):": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647592
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864996
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737183
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992604
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724252321
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724337397
+      }
+    ],
+    "5.10 Run `npm test` — all 37 tests must pass and exit code must be 0. Temporarily delete the demotion rule in `validateAnalysis` (`if (riskLevel === 'Highly Dangerous' && breakdown.length === 0)` block) and run `npm test` — VA-T2 must fail. Restore the rule. Run `npm test` with no `GROQ_API_KEY` environment variable set — all tests must still pass.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647640
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865049
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737277
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992672
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724344395
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724569552
+      }
+    ],
+    "`selectedImageData` does not appear in `index.html`.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647686
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865107
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737423
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992742
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724582155
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724612223
+      }
+    ],
+    "`imageInput` has exactly one `change` listener.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647736
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865169
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737505
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992809
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724618646
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724639375
+      }
+    ],
+    "`extractImageBtn` has exactly one `click` listener (image workflow).": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647783
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865231
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737583
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992873
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724644204
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724670836
+      }
+    ],
+    "Image preview, extraction, and analysis all function correctly.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647835
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865281
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737662
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992948
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724676505
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724739046
+      }
+    ],
+    "`saveHistoryBtn` has exactly one `click` listener.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647890
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865335
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737762
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993011
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724744077
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732561586
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732575351
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732615681
+      }
+    ],
+    "`renderHistory` is defined exactly once.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647941
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865390
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737842
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993082
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732625492
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732659897
+      }
+    ],
+    "`clearHistoryBtn` has exactly one `click` listener.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672647989
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865454
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675737918
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993211
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732672110
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732704000
+      }
+    ],
+    "Saving a report creates exactly one `localStorage` entry.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648040
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865517
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738007
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993280
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732718718
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732800274
+      }
+    ],
+    "`.gitignore` excludes `.env`, `*.log`, `npm-debug.log*`.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648088
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865576
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738107
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993350
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732814591
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732838715
+      }
+    ],
+    "`.env.example` exists with placeholder values only.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648133
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865633
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738183
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993414
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732845660
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732873831
+      }
+    ],
+    "No real API key appears in any tracked file.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648179
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865696
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738273
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993483
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732877940
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732938906
+      }
+    ],
+    "All HTTP responses include a `Content-Security-Policy` header.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648226
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865759
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738353
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993553
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732944002
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732978467
+      }
+    ],
+    "HTML responses include a per-request nonce in `script-src`.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648273
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865815
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738433
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993623
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794732982195
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794733015246
+      }
+    ],
+    "No CSP violations in the browser console during normal use.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648377
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865874
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738531
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993692
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794733019854
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794733139597
+      }
+    ],
+    "`privacy.html` inline styles are served from a separate CSS file.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648425
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865932
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738628
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993778
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794733144552
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794733168828
+      }
+    ],
+    "`npm test` exits 0 with all tests passing.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648472
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673865990
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738725
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993852
+      },
+      {
+        "executionId": "69f66974-c601-4d63-9c2c-3dc97e56d231",
+        "chatSessionId": "sess_f9e2ce67-0fac-4dd0-b28e-bafa95ee0974",
+        "timestamp": 1794733174338
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974586373
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974591283
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974738943
+      }
+    ],
+    "All 37 test cases (VA-T1–T8, IL-T1–T9, IS-T1–T6, AS-T1–T9, RQ-T1–T5) are present.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648517
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673866045
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738807
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993919
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974587238
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974754132
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974777872
+      }
+    ],
+    "Deliberately breaking `validateAnalysis` causes the relevant test to fail.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648564
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673866102
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738892
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720993989
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974587485
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974782584
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974812589
+      }
+    ],
+    "No network calls are made during the test run.": [
+      {
+        "executionId": "235401b2-b875-42eb-8b67-e15757f50d39",
+        "chatSessionId": "sess_da9d1dc2-dc18-4178-99e7-6aa07b2e0f21",
+        "timestamp": 1794672648608
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673866161
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675738982
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720994055
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974587654
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974824607
+      },
+      {
+        "executionId": "a151c21c-b116-45fa-95ea-36097dd0ba23",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794974856512
+      }
+    ],
+    "1.1 Open `public/index.html`. Locate the first screenshot block — currently **lines 983 through 1120**. It begins at this comment on line 983:": [
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863200
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673874986
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673904778
+      }
+    ],
+    "1.2 Delete lines 983–1120 in their entirety. After deletion, the second screenshot block (which begins at the comment `// SCREENSHOT TOOL` now at line 1121) becomes the sole screenshot implementation. Confirm that line 1121 now reads `// --------------------------------------------------` and line 1122 reads `// SCREENSHOT TOOL`.": [
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863289
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673914114
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673959409
+      }
+    ],
+    "2.1 Search `public/index.html` for the **second** occurrence of `$('saveHistoryBtn').addEventListener('click', () => {`. In the current file (before Task 1 runs) this is on line 2277. After Task 1 removes 138 lines, it will be approximately line 2139 — always locate by content, not by hardcoded line number.": [
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863513
+      },
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794674087216
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675734991
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675749810
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675770441
+      }
+    ],
+    "2.2 Delete everything from that second `$('saveHistoryBtn').addEventListener` call through to and including the closing `});` of the second `$('clearHistoryBtn').addEventListener` call. This removes the second copies of: `$('saveHistoryBtn').addEventListener('click', () => { ... });`, `function renderHistory() { ... }`, and `$('clearHistoryBtn').addEventListener('click', () => { ... });`. After deletion the file must end with: the closing `});` of Block C's `clearHistoryBtn` listener, a blank line, `</script>`, `</body>`, `</html>`.": [
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673863582
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675735118
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675780092
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675822679
+      }
+    ],
+    "5.3 In `package.json`, add the `\"test\"` script. The existing `scripts` block currently contains only `\"start\"`:": [
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794673864557
+      },
+      {
+        "executionId": "7a3fcb05-5382-4679-b3b4-b6f5bc7d9b57",
+        "chatSessionId": "sess_17bd2185-f8e7-4d0d-bdf9-4b85a14a40ca",
+        "timestamp": 1794675736629
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794720992190
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794723034073
+      },
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794723068259
+      }
+    ],
+    "1. Remove duplicate image event listeners (BUG-01)": [
+      {
+        "executionId": "e83cb236-1611-431b-8453-1302f4255d67",
+        "chatSessionId": "sess_b34ea785-f9ca-474b-afeb-7f55efc36176",
+        "timestamp": 1794674078206
+      }
+    ],
+    "2. Remove duplicate history event listeners (BUG-02)": [
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721128918
+      }
+    ],
+    "3. Improve API key security": [
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794721439249
+      }
+    ],
+    "4. Add Content Security Policy": [
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794722915695
+      }
+    ],
+    "5. Add automated unit tests": [
+      {
+        "executionId": "cc0d8233-b350-4d9e-bb02-d39a387e7374",
+        "chatSessionId": "sess_1c51863c-ae15-4707-b91b-018fc587ff2a",
+        "timestamp": 1794724569688
+      }
+    ],
+    "6.1 Fix `npm test` to include the rescue test suite. Open `package.json`. Change the `\"test\"` script from:": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794975914205
+      },
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794975947401
+      }
+    ],
+    "6.2 Add the I4C advisory URL to `SOURCES.verify` in `public/rescue.js`. Locate the `SOURCES` object:": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794975952596
+      },
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794976181311
+      }
+    ],
+    "6.3 Add a `LICENSE` file at the project root. Create `LICENSE` containing the MIT licence text with the current year (2026) and the author name \"Lakshya Garg\":": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794976248990
+      },
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794976983002
+      }
+    ],
+    "6.4 Add `TRUST_PROXY` to `.env.example` with an explanatory comment. Open `.env.example` and append after the last line:": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794976988397
+      },
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977597238
+      }
+    ],
+    "6.5 Create `README.md` at the project root. The file must contain all of the following sections in this order:": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977597417
+      }
+    ],
+    "6.6 Keep README.txt locally but exclude it from the public repository by adding it to .gitignore. Do not delete it.": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977597879
+      }
+    ],
+    "6.7 Mark `analyzeText` export clearly in `server.js`. Locate the test export block at the bottom of `server.js`:": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977598577
+      }
+    ],
+    "6.8 Surface truncated, empty and malformed AI responses as clear user-facing errors, with mocked-client tests (analyzeText accepts an injected client)": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977599406
+      }
+    ],
+    "6.9 Add Kiro steering files (product, tech-stack, structure)": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977600208
+      }
+    ],
+    "6.10 Add the PostFileSave test hook in .kiro/hooks/run-tests-on-save.json": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977600985
+      }
+    ],
+    "6.11 Correct the privacy policy feedback-count statement": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977601446
+      }
+    ],
+    "6. Post-audit fixes (from independent audit, November 2026)": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977601575
+      }
+    ],
+    "`npm test` runs both `server.test.js` and `rescue.test.js` (48 tests total).": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977607308
+      }
+    ],
+    "`LICENSE` file exists at the project root (MIT, 2026, Lakshya Garg).": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977607504
+      }
+    ],
+    "`README.md` exists and covers setup, tools, Kiro usage, limitations, and licence.": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977610262
+      }
+    ],
+    "README.txt is excluded from the public repository via .gitignore (kept locally).": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977610432
+      }
+    ],
+    "`.env.example` documents `TRUST_PROXY`.": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977610612
+      }
+    ],
+    "`analyzeText` export in `server.js` has a comment distinguishing it from pure functions.": [
+      {
+        "executionId": "29720689-a103-4557-b3c3-161136e4e870",
+        "chatSessionId": "sess_a2f91e5a-d379-4d15-a882-b091b7dd3e50",
+        "timestamp": 1794977610761
+      }
+    ],
+    "7.1 Rotate the Groq API key (manual, owner only)": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999918600
+      }
+    ],
+    "7.2 Resolve the missing `README.txt`": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999919193
+      },
+      {
+        "executionId": "0449e769-b86f-4ef8-8521-1df0cb9824f2",
+        "chatSessionId": "sess_b93d0853-c08e-480b-8660-9a794d58c39d",
+        "timestamp": 1795010972565
+      }
+    ],
+    "7.3 Confirm the Rescue Mode official sources": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999919371
+      },
+      {
+        "executionId": "d6c1c9ec-f130-4ad1-8412-54cc48676f69",
+        "chatSessionId": "sess_b93d0853-c08e-480b-8660-9a794d58c39d",
+        "timestamp": 1795011528510
+      },
+      {
+        "executionId": "d6c1c9ec-f130-4ad1-8412-54cc48676f69",
+        "chatSessionId": "sess_b93d0853-c08e-480b-8660-9a794d58c39d",
+        "timestamp": 1795011764774
+      },
+      {
+        "executionId": "f6f5ee16-a550-4ebd-b95b-c4d27d2a72b7",
+        "chatSessionId": "sess_b93d0853-c08e-480b-8660-9a794d58c39d",
+        "timestamp": 1795011868519
+      }
+    ],
+    "7.4 Verify the PostFileSave hook fires in a Kiro session": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999919926
+      }
+    ],
+    "7.5 Run `npm test` manually with no key and no network": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999920538
+      }
+    ],
+    "7.6 (optional) Check `finish_reason` in `/api/analyze-image`": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999921063
+      }
+    ],
+    "7.7 (optional) Remove the unused `.feedback-section` rules from `public/style.css`": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999921396
+      }
+    ],
+    "`README.txt` restored or REQ-6.25 amended (7.2)": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999921731
+      }
+    ],
+    "Official Rescue Mode source links opened and confirmed by the owner (7.3)": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999922302
+      }
+    ],
+    "PostFileSave hook observed firing in a Kiro session (7.4)": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999922516
+      }
+    ],
+    "Manual offline `npm test` run shows 64 tests, 0 failures (7.5)": [
+      {
+        "executionId": "e1abfeed-3d27-4497-87ac-b8b21b552eba",
+        "chatSessionId": "sess_a65b59b2-d166-414e-a0ac-5175cf69ffca",
+        "timestamp": 1794999922647
+      }
+    ]
+  }
+}
