@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Run offline tests after code changes",
+      "description": "Runs npm test (offline unit tests, no network, no Groq key needed) when the agent saves server.js, public/rescue.js, public/index.html or a test file. A non-zero exit reports stderr to the agent.",
+      "trigger": "PostFileSave",
+      "matcher": "(^|[\\\\/])(server\\.js|rescue\\.js|index\\.html|[^\\\\/]+\\.test\\.js)$",
+      "action": { "type": "command", "command": "npm test" },
+      "timeout": 120,
+      "enabled": true
+    }
+  ]
+}
