@@ -1,5 +1,8 @@
 # Scam Lens
 
+**Live demo:** https://scam-lens-d41l.onrender.com
+*(Hosted on a free plan: the first load after idle can take up to a minute.)*
+
 An AI-assisted scam and phishing awareness checker for Indian users.
 
 Scam Lens helps people review suspicious messages, screenshots, calls, and links before taking action. It explains possible manipulation tactics and suggests safer next steps — without replacing human judgement.
@@ -180,6 +183,24 @@ For immediate physical danger, call **112**.
 If someone threatens you with "digital arrest": the I4C / NCTAU advisory of 6 March 2025 says there is no concept of Digital Arrest under Indian law, and the Ministry of Home Affairs (PIB, 27 October 2024) says no government agency conducts investigations over phone or video calls. Verify the claim yourself with your nearest police station, using contact details you find independently.
 
 ---
+## Development timeline
+
+- Development of Scam Lens began on **10 November 2026**, locally, before this
+  GitHub repository existed. The repository was created later, so Git commit
+  dates reflect when the code was uploaded, not when it was written.
+- The Kiro spec files in `.kiro/specs/` record part of the development history.
+
+## Tools and AI assistance
+
+- **Kiro:** spec-driven development, steering documents and a test hook (see below).
+- **ChatGPT and Claude:** used for code review, test and benchmark design,
+  Rescue Mode content and ordering, and drafting documentation. All code and
+  content was reviewed and run by the author.
+- **Runtime services:** Groq-hosted models (text analysis, screenshot OCR)
+  and Whisper (speech transcription).
+- **Libraries:** Express, the OpenAI SDK and dotenv, each under its own licence.
+
+
 
 ## How Kiro was used
 
