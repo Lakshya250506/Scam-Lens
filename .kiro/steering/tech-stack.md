@@ -42,10 +42,14 @@ inclusion: always
 
 ## Testing
 
-- **Node.js built-in test runner** (`node --test`) — zero extra dependencies
-- `tests/server.test.js` — 60 unit tests for pure server-side functions and `analyzeText` / `extractImageText` with mock clients
+- **Node.js built-in test runner** (`node --test`). The only test-only dependency is `fast-check`, a devDependency used for property-based tests.
+- `tests/server.test.js` — 98 unit tests for pure server-side functions and `analyzeText` / `extractImageText` with mock clients
 - `tests/rescue.test.js` — 17 tests for Rescue Mode logic: exhaustive scenario combinations and source labels (not randomised property-based tests)
-- Run with: `npm test`
+- `tests/a11y.test.js` — 29 static accessibility checks that read `index.html`, `privacy.html` and `style.css` as text (no DOM library, no browser)
+- `tests/properties.test.js` — 5 fast-check property tests (fixed seed 20261122)
+- `tests/secrets.test.js` — 8 tests for `scripts/check-secrets.js`
+- 157 tests in total
+- Run with: `npm test`. Secret scan: `npm run check:secrets`
 - No network calls during tests; no Groq API key required
 
 ## Environment variables
@@ -69,8 +73,11 @@ Optional (defaults in parentheses):
     "express": "^5.3.0",
     "dotenv": "^18.0.10",
     "openai": "^7.55.0"
+  },
+  "devDependencies": {
+    "fast-check": "^4.11.0"
   }
 }
 ```
 
-No devDependencies — the built-in test runner requires none.
+One devDependency: `fast-check` (`^4.11.0`, installed 4.11.0) for property-based tests. It is not needed at runtime.

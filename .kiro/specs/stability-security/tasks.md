@@ -1,4 +1,4 @@
-﻿# Implementation Plan: Scam Lens – Stability and Security Improvements
+# Implementation Plan: Scam Lens – Stability and Security Improvements
 
 ## Overview
 
@@ -9,11 +9,38 @@ Six tasks fix the functional bugs and security gaps identified in the architectu
 ```json
 {
   "waves": [
-    { "wave": 1, "tasks": [1, 3] },
-    { "wave": 2, "tasks": [2, 4] },
-    { "wave": 3, "tasks": [5] },
-    { "wave": 4, "tasks": [6] },
-    { "wave": 5, "tasks": [7] }
+    {
+      "id": 0,
+      "tasks": [
+        "1",
+        "3"
+      ]
+    },
+    {
+      "id": 1,
+      "tasks": [
+        "2",
+        "4"
+      ]
+    },
+    {
+      "id": 2,
+      "tasks": [
+        "5"
+      ]
+    },
+    {
+      "id": 3,
+      "tasks": [
+        "6"
+      ]
+    },
+    {
+      "id": 4,
+      "tasks": [
+        "7"
+      ]
+    }
   ]
 }
 ```
