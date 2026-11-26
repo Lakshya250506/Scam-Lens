@@ -109,10 +109,6 @@ app.get('/index.html', serveIndexWithNonce);
 
 app.use(express.static(PUBLIC_DIR, { index: false }));
 
-app.get('/api/health', (_req, res) => {
-    res.json({ ok: true });
-});
-
 // Groq client
 const groq = process.env.GROQ_API_KEY?.trim()
     ? new OpenAI({
@@ -120,6 +116,40 @@ const groq = process.env.GROQ_API_KEY?.trim()
         baseURL: 'https://api.groq.com/openai/v1'
     })
     : null;
+
+// Liveness plus whether an AI key is set. Booleans only: never the key.
+function healthStatus(client = groq) {
+    return { ok: true, aiConfigured: Boolean(client) };
+}
+
+app.get('/api/health', (_req, res) => {
+    res.json(healthStatus());
+});
+
+// Plain messages for failed screenshot or audio processing. They depend only
+// on the provider's HTTP status and never include provider text, keys or
+// submitted content. Details are logged on the server only.
+const SERVICE_UNAVAILABLE_MESSAGE =
+    'This feature is not available right now. Please try again later.';
+
+function providerFailureMessage(kind, error) {
+    const status = Number(error?.status);
+    const isAudio = kind === 'audio';
+
+    if (status === 429 || status === 503) {
+        return 'The service is busy right now. Please wait a minute and try again.';
+    }
+
+    if ([400, 413, 415, 422].includes(status)) {
+        return isAudio
+            ? 'We could not read this audio file. Try a different recording or format.'
+            : 'We could not read this screenshot. Try a clearer or smaller image.';
+    }
+
+    return isAudio
+        ? 'We could not transcribe this recording right now. Please try again.'
+        : 'We could not read text from this screenshot right now. Please try again.';
+}
 
 // Allowed values
 const allowedRiskLevels = new Set([
@@ -421,6 +451,75 @@ function recoverExactQuote(message, proposedQuote) {
     }
 }
 
+// Money has already moved (past tense). English phrases are unchanged.
+// Hinglish and Devanagari phrases are past tense only, so a scammer's demand
+// such as "paise bhej do" does not count. Devanagari patterns use no \b,
+// because JavaScript word boundaries do not treat Devanagari as word letters.
+const MONEY_MOVED_PATTERNS = [
+    /\b(already paid|already transferred|money was debited|money was transferred|i paid|i transferred|amount was deducted)\b/i,
+    /\bpais[ae]\s+bhej\s+di(?:ya|ye|e)\b/i,
+    /\btransfer\s+kar\s+di(?:ya|ye|e)\b/i,
+    /\bpais[ae]\s+kaa?t\s+(?:gaya|gaye|gayi|liya|liye)\b/i,
+    /\bpais[ae]\s+nikal\s+(?:gaya|gaye|gayi|liya|liye)\b/i,
+    /पैस(?:े|ा)\s*भेज\s*दि(?:ए|या|ये)/u,
+    /ट्रांसफर\s*कर\s*दि(?:ए|या|ये)/u,
+    /पैस(?:े|ा)\s*कट\s*ग(?:ए|या|ये)/u,
+    /पैस(?:े|ा)\s*निकल\s*ग(?:ए|या|ये)/u
+];
+
+function moneyAlreadyMoved(text) {
+    const value = String(text ?? '');
+    return MONEY_MOVED_PATTERNS.some(pattern => pattern.test(value));
+}
+
+// Recommended next steps: keep the first step for each meaning, keep the
+// order, and cap the list. Two steps with the same meaning (for example two
+// wordings of "do not share the OTP") are collapsed into the first one.
+const NEXT_STEP_TOPICS = [
+    [
+        'credentials',
+        text => /\b(otps?|pins?|passwords?|cvv)\b/.test(text) &&
+            /\b(share|sharing|shared|tell|give|disclose|reveal)\b/.test(text)
+    ],
+    ['portal', text => text.includes('cybercrime.gov.in')],
+    ['helpline', text => /\b1930\b/.test(text)]
+];
+
+function dedupeNextSteps(steps, limit = 6) {
+    const seenText = new Set();
+    const seenTopics = new Set();
+    const kept = [];
+
+    for (const step of Array.isArray(steps) ? steps : []) {
+        if (typeof step !== 'string' || !step.trim()) continue;
+
+        const lower = step.toLowerCase();
+        const normalised = lower
+            .replace(/[^\p{L}\p{N}\s.]/gu, ' ')
+            .replace(/\.(?=\s|$)/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+        if (seenText.has(normalised)) continue;
+
+        const topics = NEXT_STEP_TOPICS
+            .filter(([, matches]) => matches(lower))
+            .map(([name]) => name);
+
+        if (topics.length && topics.every(topic => seenTopics.has(topic))) {
+            continue;
+        }
+
+        seenText.add(normalised);
+        topics.forEach(topic => seenTopics.add(topic));
+        kept.push(step);
+
+        if (kept.length >= limit) break;
+    }
+
+    return kept;
+}
+
 function validateAnalysis(value, originalMessage) {
     if (!value || typeof value !== 'object' || Array.isArray(value)) {
         throw new Error('Invalid AI response.');
@@ -533,11 +632,7 @@ function validateAnalysis(value, originalMessage) {
         );
     }
 
-    const moneyAlreadyMoved =
-        /\b(already paid|already transferred|money was debited|money was transferred|i paid|i transferred|amount was deducted)\b/i
-            .test(originalMessage);
-
-    if (moneyAlreadyMoved) {
+    if (moneyAlreadyMoved(originalMessage)) {
         nextSteps.unshift(
             'If money has been lost, contact your bank or payment provider immediately and call India’s cyber financial fraud helpline 1930.'
         );
@@ -551,7 +646,7 @@ function validateAnalysis(value, originalMessage) {
         ).slice(0, 1800),
         scam_breakdown: breakdown,
         manipulation_sequence: sequence,
-        safe_next_steps: [...new Set(nextSteps)].slice(0, 9),
+        safe_next_steps: dedupeNextSteps(nextSteps),
         safe_response_template:
             riskLevel === 'Highly Dangerous'
                 ? null
@@ -590,6 +685,17 @@ function analysisFailure(error) {
     };
 }
 
+// The user's text is placed between <MESSAGE> and </MESSAGE> in the prompt.
+// Any such tag inside the text (any case, optional spaces or attributes) is
+// replaced so the text cannot close or reopen the delimiter. This copy is used
+// only in the prompt; evidence quotes are still checked against the original.
+function neutraliseDelimiters(text) {
+    return String(text ?? '').replace(
+        /<\s*(\/?)\s*message\b[^>]*>/gi,
+        (_tag, slash) => (slash ? '[/message]' : '[message]')
+    );
+}
+
 // Benchmark/test-only entry point besides /api/analyze. Needs a live
 // GROQ_API_KEY unless a client is injected (tests pass a mock client).
 async function analyzeText(message, language = 'auto', client = groq) {
@@ -608,7 +714,7 @@ async function analyzeText(message, language = 'auto', client = groq) {
                 content:
                     `${languageInstruction}\n\n` +
                     `Analyze the following untrusted message:\n\n` +
-                    `<MESSAGE>\n${message}\n</MESSAGE>`
+                    `<MESSAGE>\n${neutraliseDelimiters(message)}\n</MESSAGE>`
             }
         ],
         temperature: 0.1,
@@ -804,7 +910,7 @@ app.post('/api/analyze-image', imageLimit, async (req, res) => {
 
     if (!groq) {
         return res.status(503).json({
-            error: 'Groq API key is not configured.'
+            error: SERVICE_UNAVAILABLE_MESSAGE
         });
     }
 
@@ -882,7 +988,7 @@ app.post('/api/analyze-image', imageLimit, async (req, res) => {
         });
 
         return res.status(502).json({
-            error: 'Screenshot text extraction failed. Check the backend terminal.'
+            error: providerFailureMessage('image', error)
         });
     }
 });
@@ -926,7 +1032,7 @@ app.post(
 
         if (!groq) {
             return res.status(503).json({
-                error: 'Groq API key is not configured.'
+                error: SERVICE_UNAVAILABLE_MESSAGE
             });
         }
 
@@ -1040,7 +1146,7 @@ app.post(
             });
 
             return res.status(502).json({
-                error: 'Audio transcription failed. Check the recording format, Groq access and backend terminal.'
+                error: providerFailureMessage('audio', error)
             });
         }
     }
@@ -1059,6 +1165,253 @@ const knownShorteners = new Set([
     'rb.gy',
     'rebrand.ly'
 ]);
+
+// ----------------------------------------------------
+// Brand lookalike check (deterministic, hostname text only)
+// ----------------------------------------------------
+// No network or DNS call is made. The check compares exact hostname tokens
+// (split on "." and "-") with the data below.
+//
+// Limits (keep these in the README too):
+// - The brand list is small. A fake site that uses no listed brand token,
+//   a misspelling such as "sbbi", or a lookalike character is not caught.
+// - The registrable domain is a simplification, not the Public Suffix List.
+//   It can be wrong for some country domains.
+// - Only the hostname is read, not the path.
+// - A real domain missing from officialDomains can be flagged if its
+//   hostname also holds a keyword such as "login".
+// - Hosts inside bank.in or fin.in skip Rule A (assumption, TO VERIFY BY
+//   AUTHOR), and the word "axis" needs "bank" in the hostname, so a fake that
+//   only uses those can be missed.
+// - The result is decision support, not proof.
+
+// Indian brands. "tokens" are exact hostname tokens. "officialDomains" are
+// registrable domains. Every officialDomains entry is TO VERIFY BY AUTHOR.
+// Only domains the implementer is sure of are listed on purpose.
+const INDIAN_BRANDS = {
+    sbi: {
+        name: 'SBI',
+        kind: 'bank',
+        tokens: ['sbi', 'onlinesbi'],
+        // TO VERIFY BY AUTHOR
+        officialDomains: ['sbi.co.in', 'onlinesbi.sbi', 'bank.sbi', 'onlinesbi.com']
+    },
+    hdfc: {
+        name: 'HDFC Bank',
+        kind: 'bank',
+        tokens: ['hdfc', 'hdfcbank'],
+        // TO VERIFY BY AUTHOR
+        officialDomains: ['hdfcbank.com']
+    },
+    icici: {
+        name: 'ICICI Bank',
+        kind: 'bank',
+        tokens: ['icici', 'icicibank'],
+        // TO VERIFY BY AUTHOR
+        officialDomains: ['icicibank.com']
+    },
+    axis: {
+        name: 'Axis Bank',
+        kind: 'bank',
+        tokens: ['axis', 'axisbank'],
+        // TO VERIFY BY AUTHOR
+        officialDomains: ['axisbank.com']
+    },
+    paytm: {
+        name: 'Paytm',
+        kind: 'app',
+        tokens: ['paytm'],
+        // TO VERIFY BY AUTHOR
+        officialDomains: ['paytm.com']
+    },
+    phonepe: {
+        name: 'PhonePe',
+        kind: 'app',
+        tokens: ['phonepe'],
+        // TO VERIFY BY AUTHOR
+        officialDomains: ['phonepe.com']
+    },
+    irctc: {
+        name: 'IRCTC',
+        kind: 'service',
+        tokens: ['irctc'],
+        // TO VERIFY BY AUTHOR
+        officialDomains: ['irctc.co.in']
+    },
+    uidai: {
+        name: 'UIDAI (Aadhaar)',
+        kind: 'service',
+        tokens: ['uidai'],
+        // TO VERIFY BY AUTHOR
+        officialDomains: ['uidai.gov.in']
+    },
+    incometax: {
+        name: 'Income Tax Department',
+        kind: 'service',
+        tokens: ['incometax', 'incometaxindia'],
+        // TO VERIFY BY AUTHOR
+        officialDomains: ['incometax.gov.in', 'incometaxindia.gov.in']
+    },
+    npci: {
+        name: 'NPCI',
+        kind: 'service',
+        tokens: ['npci'],
+        // TO VERIFY BY AUTHOR
+        officialDomains: ['npci.org.in']
+    }
+};
+
+// Every official registrable domain in the table, for any brand.
+const ALL_OFFICIAL_DOMAINS = new Set(
+    Object.values(INDIAN_BRANDS).flatMap(brand => brand.officialDomains)
+);
+
+const LOOKALIKE_KEYWORDS = new Set([
+    'login', 'kyc', 'verify', 'secure', 'update',
+    'refund', 'claim', 'account', 'support', 'rewards'
+]);
+
+const LOOKALIKE_SUSPICIOUS_TLDS = new Set([
+    'xyz', 'top', 'click', 'icu', 'buzz'
+]);
+
+// Second-level labels used with a two-letter country TLD (for example co.in).
+const REGISTRABLE_SECOND_LEVELS = new Set([
+    'co', 'com', 'org', 'net', 'gov', 'ac', 'edu', 'nic', 'res'
+]);
+
+// Second-level labels used only under the .in country domain, so that
+// www.sbi.bank.in has the registrable domain sbi.bank.in.
+const IN_RESTRICTED_SECOND_LEVELS = new Set(['bank', 'fin']);
+
+// Restricted to RBI-approved entities. Assumption, TO VERIFY BY AUTHOR.
+// Rule A is skipped for a host that equals one of these or ends with "." plus
+// one of these. The dot matters: sbi.fakebank.in is NOT inside bank.in.
+const RESTRICTED_NAMESPACES = ['bank.in', 'fin.in'];
+
+// A brand word that is also an ordinary English word only counts when its
+// companion word is in the hostname too. "axisbank" always counts.
+const AMBIGUOUS_BRAND_TOKENS = new Map([['axis', 'bank']]);
+
+const LOOKALIKE_KIND_TEXT = {
+    bank: { named: 'a bank name', owner: "that bank's" },
+    app: { named: 'a payment app name', owner: "that app's" },
+    service: {
+        named: 'the name of an Indian government or public service',
+        owner: "that service's"
+    }
+};
+
+// Last two labels, or the last three when the second-to-last label is in
+// REGISTRABLE_SECOND_LEVELS and the last label has two letters, or when the
+// last label is "in" and the second-to-last label is bank or fin.
+function getRegistrableDomain(labels) {
+    if (labels.length <= 2) {
+        return labels.join('.');
+    }
+
+    const tld = labels[labels.length - 1];
+    const second = labels[labels.length - 2];
+
+    if (
+        tld.length === 2 && (
+            REGISTRABLE_SECOND_LEVELS.has(second) ||
+            (tld === 'in' && IN_RESTRICTED_SECOND_LEVELS.has(second))
+        )
+    ) {
+        return labels.slice(-3).join('.');
+    }
+
+    return labels.slice(-2).join('.');
+}
+
+function checkBrandLookalike(rawHostname) {
+    const result = { findings: [], high: false };
+    const host = String(rawHostname || '').toLowerCase().replace(/\.+$/, '');
+
+    if (!host || net.isIP(host)) {
+        return result;
+    }
+
+    const labels = host.split('.').filter(Boolean);
+
+    if (labels.length === 0) {
+        return result;
+    }
+
+    const tld = labels[labels.length - 1];
+    const registrable = getRegistrableDomain(labels);
+    const subdomainLabels = labels.slice(
+        0,
+        labels.length - registrable.split('.').length
+    );
+
+    // Tokens from every label except the TLD. Punycode labels are skipped:
+    // their letters are encoded and are not what the user sees.
+    const tokensOf = list => list
+        .filter(label => !label.startsWith('xn--'))
+        .flatMap(label => label.split('-'))
+        .filter(Boolean);
+
+    const hostTokens = tokensOf(labels.slice(0, -1));
+    const subdomainTokens = new Set(tokensOf(subdomainLabels));
+    const keyword = hostTokens.find(token => LOOKALIKE_KEYWORDS.has(token));
+    const suspiciousTld = LOOKALIKE_SUSPICIOUS_TLDS.has(tld);
+
+    // Hosts inside a restricted namespace skip Rule A (Rule B is unaffected).
+    // So do hosts whose registrable domain is the official domain of ANY
+    // listed brand: its owner controls every name under it, so a brand word in
+    // a subdomain there (for example incometaxindia.sbi.co.in) is not a
+    // lookalike. Found by property test P4a.
+    const restricted = RESTRICTED_NAMESPACES.some(
+        namespace => host === namespace || host.endsWith(`.${namespace}`)
+    ) || ALL_OFFICIAL_DOMAINS.has(registrable);
+
+    // A brand token counts when it is in the hostname and, for an ordinary
+    // English word such as "axis", its companion word is there too.
+    const brandWordCounts = token =>
+        hostTokens.includes(token) && (
+            !AMBIGUOUS_BRAND_TOKENS.has(token) ||
+            hostTokens.includes(AMBIGUOUS_BRAND_TOKENS.get(token))
+        );
+
+    // Rule A: a brand name on a domain that is not that brand's own.
+    let brandMatched = false;
+
+    for (const brand of restricted ? [] : Object.values(INDIAN_BRANDS)) {
+        if (!brand.tokens.some(brandWordCounts)) {
+            continue;
+        }
+
+        if (brand.officialDomains.includes(registrable)) {
+            continue;
+        }
+
+        const inSubdomain = brand.tokens.some(
+            token => brandWordCounts(token) && subdomainTokens.has(token)
+        );
+
+        if (keyword || suspiciousTld || inSubdomain) {
+            const text = LOOKALIKE_KIND_TEXT[brand.kind];
+
+            result.findings.push(
+                `This web address uses ${text.named} (${brand.name}) but does not appear to be ${text.owner} official site. ` +
+                `The main part of the address is ${registrable}.`
+            );
+            result.high = true;
+            brandMatched = true;
+        }
+    }
+
+    // Rule B (weaker): uncommon ending plus a sensitive word, no brand.
+    if (!brandMatched && suspiciousTld && keyword) {
+        result.findings.push(
+            `This web address pairs the word "${keyword}" with an uncommon ending (.${tld}). Many fake websites use this pattern.`
+        );
+    }
+
+    return result;
+}
 
 function inspectLink(input) {
     let candidate = String(input || '').trim();
@@ -1143,6 +1496,9 @@ function inspectLink(input) {
         );
     }
 
+    const lookalike = checkBrandLookalike(hostname);
+    findings.push(...lookalike.findings);
+
     if (findings.length === 0) {
         suggestions.push(
             'No obvious structural red flags were found.'
@@ -1153,9 +1509,15 @@ function inspectLink(input) {
         );
     }
 
-    const riskLevel = findings.some(item =>
+    if (lookalike.findings.length) {
+        suggestions.push(
+            'Do not log in or enter any details on this page. Open the official app, or type the official website address yourself.'
+        );
+    }
+
+    const riskLevel = (lookalike.high || findings.some(item =>
         /embedded username|punycode|raw IP address/i.test(item)
-    )
+    ))
         ? 'High caution'
         : findings.length
             ? 'Review carefully'
@@ -1237,7 +1599,16 @@ if (process.env.NODE_ENV === 'test') {
         recoverExactQuote,
         analyzeText,
         extractImageText,
+        getRegistrableDomain,
         AnalysisError,
-        analysisFailure
+        analysisFailure,
+        neutraliseDelimiters,
+        moneyAlreadyMoved,
+        dedupeNextSteps,
+        providerFailureMessage,
+        healthStatus,
+        INDIAN_BRANDS,
+        LOOKALIKE_KEYWORDS,
+        LOOKALIKE_SUSPICIOUS_TLDS
     };
 }

@@ -1,3 +1,19 @@
+/* The privacy page header reuses .site-header, which has no padding
+   because the app's top bar does not need it. Give it inner spacing. */
+.app-shell > .site-header {
+    margin-bottom: 18px;
+    padding: 24px 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+.app-shell > .site-header .subtitle {
+    margin-bottom: 0;
+}
+@media (max-width: 640px) {
+    .app-shell > .site-header {
+        padding: 18px;
+    }
+}
 .policy-content {
     display: grid;
     gap: 16px;
@@ -34,7 +50,7 @@
 }
 
 .policy-updated {
-    margin: -10px 0 18px;
+    margin: 0 0 18px;
     color: var(--muted);
     font-size: 0.83rem;
 }

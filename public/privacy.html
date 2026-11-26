@@ -14,7 +14,10 @@
     <link rel="stylesheet" href="/privacy.css">
 </head>
 <body>
-    <main class="app-shell">
+    <a class="skip-link" href="#mainContent">Skip to main content</a>
+    <span id="newTabHint" class="visually-hidden">Opens in a new tab</span>
+
+    <div class="app-shell">
         <header class="site-header">
             <p class="eyebrow">SCAM LENS / PRIVACY</p>
             <h1>Privacy &amp; Data Use</h1>
@@ -24,7 +27,9 @@
             </p>
         </header>
 
-        <p class="policy-updated">Last updated: November 13, 2026</p>
+        <main id="mainContent" tabindex="-1">
+
+        <p class="policy-updated">Last updated: November 26, 2026</p>
 
         <div class="policy-content">
             <section class="policy-card">
@@ -168,7 +173,7 @@
                     contact your bank or payment provider immediately and call the national
                     cyber financial fraud helpline at <strong>1930</strong>. You can also
                     report cybercrime at
-                    <a href="https://cybercrime.gov.in/" target="_blank" rel="noopener noreferrer">cybercrime.gov.in</a>.
+                    <a href="https://cybercrime.gov.in/" target="_blank" rel="noopener noreferrer" aria-describedby="newTabHint">cybercrime.gov.in</a>.
                 </p>
             </section>
 
@@ -177,7 +182,7 @@
                 <p>
                     Scam Lens is designed and architected by
                     <a href="https://www.linkedin.com/in/lakshya-garg-798a00396/"
-                       target="_blank" rel="noopener noreferrer">Lakshya Garg</a>.
+                       target="_blank" rel="noopener noreferrer" aria-describedby="newTabHint">Lakshya Garg</a>.
                     This LinkedIn profile is provided for project-related context.
                 </p>
             </section>
@@ -185,17 +190,19 @@
 
         <a class="policy-back" href="/">← Return to Scam Lens</a>
 
+        </main>
+
         <footer class="site-footer">
             <p class="footer-credit">
                 Designed &amp; architected by
                 <a href="https://www.linkedin.com/in/lakshya-garg-798a00396/"
-                   target="_blank" rel="noopener noreferrer">Lakshya Garg</a>
+                   target="_blank" rel="noopener noreferrer" aria-describedby="newTabHint">Lakshya Garg</a>
             </p>
             <nav class="footer-links" aria-label="Footer navigation">
                 <a href="/">Home</a>
             </nav>
             <p class="footer-description">Scam Lens · Privacy &amp; Data Use</p>
         </footer>
-    </main>
+    </div>
 </body>
 </html>
