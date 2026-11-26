@@ -1,0 +1,9 @@
+node_modules/
+.env
+.DS_Store
+*.log
+npm-debug.log*
+benchmark/holdout.private.json
+benchmark/results/
+# Internal developer handoff note; keep locally, do not publish
+README.txt
